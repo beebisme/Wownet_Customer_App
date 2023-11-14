@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Wowrack Customer App</string>
+    <string name="wowrack_logo">Wowrack Logo</string>
+    <string name="login">Login</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+</resources>
