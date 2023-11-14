@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login">Login</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="help">Help</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="hotspot">Hotspot</string>
+</resources>
