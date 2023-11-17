@@ -1,4 +1,4 @@
-package com.example.wowrackcustomerapp.ui.main.section
+package com.example.wowrackcustomerapp.ui.main.section.profile
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

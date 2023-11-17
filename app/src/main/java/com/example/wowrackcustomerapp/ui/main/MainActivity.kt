@@ -4,14 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.databinding.ActivityMainBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.login.LoginActivity
-import com.example.wowrackcustomerapp.ui.main.section.HelpFragment
-import com.example.wowrackcustomerapp.ui.main.section.HomeFragment
-import com.example.wowrackcustomerapp.ui.main.section.ProfileFragment
+import com.example.wowrackcustomerapp.ui.main.section.help.HelpFragment
+import com.example.wowrackcustomerapp.ui.main.section.home.HomeFragment
+import com.example.wowrackcustomerapp.ui.main.section.hotspot.HotspotFragment
+import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,6 +25,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setHomeButtonEnabled(true)
+//
+//        // Enable options menu in the fragment
+//        val fragment = com.example.wowrackcustomerapp.ui.main.section.hotspot.HotspotFragment()
+//        supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+//
+//        fragment.setHasOptionsMenu(true)
+//        val toolbar: Toolbar = findViewById(R.id.toolbar)
+//        setSupportActionBar(toolbar)
 
         viewModel.getSession().observe(this){user->
             if (!user.isLogin){
@@ -38,6 +50,10 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.home -> {
                     loadFragment(HomeFragment())
+                    true
+                }
+                R.id.hotspot -> {
+                    loadFragment(HotspotFragment())
                     true
                 }
                 R.id.help -> {

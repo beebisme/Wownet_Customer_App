@@ -7,7 +7,7 @@ import com.example.wowrackcustomerapp.data.injection.Injection
 import com.example.wowrackcustomerapp.data.repository.UserRepository
 import com.example.wowrackcustomerapp.ui.login.LoginViewModel
 import com.example.wowrackcustomerapp.ui.main.MainViewModel
-import com.example.wowrackcustomerapp.ui.main.section.ProfileViewModel
+import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
 

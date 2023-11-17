@@ -5,11 +5,11 @@
         android:icon="@drawable/home_icon"
         android:title="@string/home"/>
     <item
-        android:id="@+id/help"
+        android:id="@+id/hotspot"
         android:icon="@drawable/baseline_network_wifi_3_bar_24"
         android:title="@string/hotspot"/>
     <item
-        android:id="@+id/hotspot"
+        android:id="@+id/help"
         android:icon="@drawable/baseline_headset_mic_24"
         android:title="@string/help"/>
     <item

@@ -10,4 +10,8 @@
     <string name="home">Home</string>
     <string name="profile">Profile</string>
     <string name="hotspot">Hotspot</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
 </resources>

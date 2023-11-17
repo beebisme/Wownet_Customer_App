@@ -1,4 +1,4 @@
-package com.example.wowrackcustomerapp.ui.main.section
+package com.example.wowrackcustomerapp.ui.main.section.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,17 +1,13 @@
-package com.example.wowrackcustomerapp.ui.main.section
+package com.example.wowrackcustomerapp.ui.main.section.profile
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
-import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.databinding.FragmentProfileBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
-import com.example.wowrackcustomerapp.ui.main.MainViewModel
 
 class ProfileFragment : Fragment() {
 
