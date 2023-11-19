@@ -4,16 +4,24 @@ import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.databinding.ActivityHelpBinding
 import com.example.wowrackcustomerapp.ui.main.MainActivity
 import com.example.wowrackcustomerapp.adapter.ChatAdapter
+import com.example.wowrackcustomerapp.adapter.CommandAdapter
 import com.example.wowrackcustomerapp.data.models.ChatMessage
+import com.example.wowrackcustomerapp.data.models.Commands
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HelpActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHelpBinding
     private lateinit var chatAdapter: ChatAdapter
+    private lateinit var cmdAdapter: CommandAdapter
     private lateinit var chatMessage: List<ChatMessage>
+    private val listCmd = ArrayList<Commands>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +54,10 @@ class HelpActivity : AppCompatActivity() {
 
         chatAdapter = ChatAdapter(chatMessage, "senderId")
         binding.chatRecyclerView.adapter = chatAdapter
+        binding.commandRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        val listCommandAdapter = CommandAdapter(listCmd)
+        binding.commandRecyclerView.adapter = listCommandAdapter
+        listCmd.addAll(getCmd())
     }
 
     private fun sendMessage() {
@@ -72,5 +84,14 @@ class HelpActivity : AppCompatActivity() {
         val dateFormat = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val date = Date()
         return dateFormat.format(date)
+    }
+    private fun getCmd():ArrayList<Commands>{
+        val cmd = resources.getStringArray(R.array.data_command)
+        val listCmd = ArrayList<Commands>()
+        for (i in cmd.indices){
+            val commands = Commands(cmd[i])
+            listCmd.add(commands)
+        }
+        return listCmd
     }
 }
