@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="@dimen/_40sdp"-->
+<!--    android:layout_marginStart="@dimen/_10sdp"-->
+<!--    android:layout_marginEnd="@dimen/_10sdp"-->
+<!--    android:layout_marginTop="@dimen/_450sdp"-->
+<!--    android:background="@color/orangeSecondary"-->
+<!--    android:id="@+id/toast_container">-->
+
+    <androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toast_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        app:cardElevation="@dimen/_20sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <FrameLayout
+            android:id="@+id/button_accent_border"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/toast_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:lines="1"
+            android:background="@color/primary"
+            android:text="@string/this_is_a_custom_toast"
+            android:textColor="@color/orange"
+            />
+    </androidx.cardview.widget.CardView>
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

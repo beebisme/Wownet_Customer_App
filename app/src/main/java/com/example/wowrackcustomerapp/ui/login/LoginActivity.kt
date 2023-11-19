@@ -2,6 +2,7 @@ package com.example.wowrackcustomerapp.ui.login
 
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,9 +11,12 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import com.example.wowrackcustomerapp.R
+import com.example.wowrackcustomerapp.customview.showCustomToast
 import com.example.wowrackcustomerapp.data.api.ApiConfig
 import com.example.wowrackcustomerapp.data.model.UserModel
 import com.example.wowrackcustomerapp.data.response.LoginResponse
@@ -32,10 +36,19 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setupView()
-        setupAction()
+        viewModel.getSession().observe(this){user->
+            if (user.isLogin){
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }else{
+                binding = ActivityLoginBinding.inflate(layoutInflater)
+                setContentView(binding.root)
+
+                setupView()
+                setupAction()
+            }
+        }
+
     }
 
     private fun setupView() {
@@ -54,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
     private fun setupAction(){
 //        val progressBar = binding.progressBar
         binding.buttonLogin.setOnClickListener {
+            binding.buttonLogin.isEnabled = false
             progressBar.visibility = View.VISIBLE
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
@@ -76,53 +90,62 @@ class LoginActivity : AppCompatActivity() {
                                 )
                             )
                             ViewModelFactory.clearInstance()
-                            AlertDialog.Builder(this@LoginActivity).apply {
-                                setTitle("Yeah!")
-                                setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
-                                setPositiveButton("Lanjut") { _, _ ->
-                                    val intent = Intent(context, MainActivity::class.java)
+                            Toast.makeText(this@LoginActivity,responseBody.message, Toast.LENGTH_LONG).show()
+//                            Toast(this@LoginActivity).showCustomToast("Selamat Anda Berhasil Login",this@LoginActivity, ColorDrawable(getColor(R.color.primary)))
+//                            AlertDialog.Builder(this@LoginActivity).apply {
+//                                setTitle("Yeah!")
+//                                setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
+//                                setPositiveButton("Lanjut") { _, _ ->
+                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                     intent.flags =
                                         Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                     startActivity(intent)
                                     finish()
-                                }
-                                create()
-                                show()
-                            }
+//                                }
+//                                create()
+//                                show()
+//                            }
                         }else{
+                            binding.buttonLogin.isEnabled = true
                             progressBar.visibility = View.GONE
-                            AlertDialog.Builder(this@LoginActivity).apply {
-                                setTitle("Ooops!")
-                                setMessage("Login failed")
-                                setPositiveButton("Lanjut") { _, _ ->
-                                    val intent = Intent(context, LoginActivity::class.java)
+                            Toast.makeText(this@LoginActivity,responseBody.message, Toast.LENGTH_LONG).show()
+//                            AlertDialog.Builder(this@LoginActivity).apply {
+//                                setTitle("Ooops!")
+//                                setMessage("Login failed")
+//                                setPositiveButton("Lanjut") { _, _ ->
+                                    val intent = Intent(this@LoginActivity, LoginActivity::class.java)
                                     intent.flags =
                                         Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                    startActivity(intent)
-                                    finish()
-                                }
-                                create()
-                                show()
-                            }
+//                                    startActivity(intent)
+//                                    finish()
+//                                }
+//                                create()
+//                                show()
+//                            }
                         }
                     }else{
-                        AlertDialog.Builder(this@LoginActivity).apply {
-                            setTitle("Ooops!")
-                            setMessage("Login failed")
-                            setPositiveButton("Lanjut") { _, _ ->
-                                val intent = Intent(context, LoginActivity::class.java)
+                        progressBar.visibility = View.GONE
+                        binding.buttonLogin.isEnabled = true
+                        Toast.makeText(this@LoginActivity,response.message(), Toast.LENGTH_LONG).show()
+//                        AlertDialog.Builder(this@LoginActivity).apply {
+//                            setTitle("Ooops!")
+//                            setMessage("Login failed")
+//                            setPositiveButton("Lanjut") { _, _ ->
+                                val intent = Intent(this@LoginActivity, LoginActivity::class.java)
                                 intent.flags =
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                startActivity(intent)
-                                finish()
-                            }
-                            create()
-                            show()
-                        }
+//                                startActivity(intent)
+//                                finish()
+//                            }
+//                            create()
+//                            show()
+//                        }
                     }
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    binding.buttonLogin.isEnabled = true
+                    progressBar.visibility = View.GONE
                     Log.e(ContentValues.TAG, "onFailure: ${t.message}")
                     AlertDialog.Builder(this@LoginActivity).apply {
                         setTitle("Oops!")
