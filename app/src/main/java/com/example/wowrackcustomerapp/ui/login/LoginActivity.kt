@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.example.wowrackcustomerapp.R
@@ -27,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel>{
         ViewModelFactory.getInstance(this)
     }
+    private lateinit var progressBar : ProgressBar
     private lateinit var binding : ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
+        progressBar = binding.progressBarLogin
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -51,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
     private fun setupAction(){
 //        val progressBar = binding.progressBar
         binding.buttonLogin.setOnClickListener {
-//            progressBar.visibility = View.VISIBLE
+            progressBar.visibility = View.VISIBLE
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             val client = ApiConfig.getApiService("").login(email, password)
@@ -60,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
                 ) {
-//                    progressBar.visibility = View.GONE
+                    progressBar.visibility = View.GONE
                     val responseBody = response.body()
                     if (responseBody != null) {
                         if (!responseBody.error) {
@@ -87,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
                                 show()
                             }
                         }else{
-//                            progressBar.visibility = View.GONE
+                            progressBar.visibility = View.GONE
                             AlertDialog.Builder(this@LoginActivity).apply {
                                 setTitle("Ooops!")
                                 setMessage("Login failed")
