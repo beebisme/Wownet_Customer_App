@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/darkblue"
+        android:background="@color/primary"
         app:itemActiveIndicatorStyle="@style/Base.Theme.WowrackCustomerApp"
         app:itemIconTint="@color/orange"
         app:itemTextColor="@color/orange"

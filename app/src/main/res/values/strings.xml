@@ -14,4 +14,6 @@
     <string name="satellite_type">Satellite</string>
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Hybrid</string>
+    <string name="help_activity">Help Activity</string>
+    <string name="type_a_message">Type a message</string>
 </resources>

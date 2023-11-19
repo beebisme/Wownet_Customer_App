@@ -10,6 +10,7 @@ import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.databinding.ActivityMainBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.login.LoginActivity
+import com.example.wowrackcustomerapp.ui.main.section.help.HelpActivity
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpFragment
 import com.example.wowrackcustomerapp.ui.main.section.home.HomeFragment
 import com.example.wowrackcustomerapp.ui.main.section.hotspot.HotspotFragment
@@ -57,7 +58,9 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.help -> {
-                    loadFragment(HelpFragment())
+//                    loadFragment(HelpFragment())
+                    val intent = Intent(this,HelpActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.profile -> {
