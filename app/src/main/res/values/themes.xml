@@ -1,10 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.WowrackCustomerApp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.WowrackCustomerApp" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/primary</item>
          <item name="colorSecondary">@color/orange</item>
     </style>
+    
+    <style name="WowrackCustomerApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSecondary">@color/orange</item>
+    </style>
 
-    <style name="Theme.WowrackCustomerApp" parent="Base.Theme.WowrackCustomerApp" />
+    <style name="Theme.WowrackCustomerApp" parent="Base.Theme.WowrackCustomerApp">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSecondary">@color/orange</item>
+    </style>
 </resources>

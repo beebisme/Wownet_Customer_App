@@ -26,22 +26,26 @@ class HotspotFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_hotspot, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
 
-    @Deprecated("Deprecated in Java")
+    @Deprecated("Deprecated in Java", ReplaceWith(
+        "inflater.inflate(R.menu.maps_menu, menu)",
+        "com.example.wowrackcustomerapp.R"
+    )
+    )
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.maps_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+//        super.onCreateOptionsMenu(menu, inflater)
     }
 
     @Deprecated("Deprecated in Java")

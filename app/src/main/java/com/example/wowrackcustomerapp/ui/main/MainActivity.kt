@@ -3,6 +3,7 @@ package com.example.wowrackcustomerapp.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.example.wowrackcustomerapp.R
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 //        fragment.setHasOptionsMenu(true)
 //        val toolbar: Toolbar = findViewById(R.id.toolbar)
 //        setSupportActionBar(toolbar)
+
 
         viewModel.getSession().observe(this){user->
             if (!user.isLogin){

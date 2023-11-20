@@ -34,10 +34,12 @@
         <activity
             android:name=".ui.main.section.help.HelpActivity"
             android:exported="false"
+            android:theme="@style/WowrackCustomerApp"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"
+            android:theme="@style/WowrackCustomerApp"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,6 +50,7 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false"
+            android:theme="@style/WowrackCustomerApp"
             android:windowSoftInputMode="adjustResize"/>
     </application>
 
