@@ -4,14 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.databinding.ActivityMainBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.login.LoginActivity
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpActivity
-import com.example.wowrackcustomerapp.ui.main.section.help.HelpFragment
 import com.example.wowrackcustomerapp.ui.main.section.home.HomeFragment
 import com.example.wowrackcustomerapp.ui.main.section.hotspot.HotspotFragment
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileFragment
@@ -55,6 +53,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.hotspot -> {
                     loadFragment(HotspotFragment())
+//                    val intent = Intent(this,HotspotActivity::class.java)
+//                    startActivity(intent)
                     true
                 }
                 R.id.help -> {

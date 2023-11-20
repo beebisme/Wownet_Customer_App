@@ -38,11 +38,13 @@ class HotspotFragment : Fragment(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.maps_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.normal_type -> {
@@ -76,9 +78,10 @@ class HotspotFragment : Fragment(), OnMapReadyCallback {
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
         getMyLocation()
-//        val sydney = LatLng(-34.0, 151.0)
-//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        setMapStyle()
+        val sydney = LatLng(-34.0, 151.0)
+        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
     private fun getMyLocation() {
@@ -111,6 +114,7 @@ class HotspotFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -128,15 +132,20 @@ class HotspotFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-//    private fun setMapStyle() {
-//        try {
-//            val success =
-//                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.))
-//            if (!success) {
-//                Log.e(TAG, "Style parsing failed.")
-//            }
-//        } catch (exception: Resources.NotFoundException) {
-//            Log.e(TAG, "Can't find style. Error: ", exception)
-//        }
-//    }
+    private fun setMapStyle() {
+        try {
+            val success =
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.maps_style))
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.")
+            }
+        } catch (exception: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", exception)
+        }
+    }
+
+    //use live template logt to create this
+    companion object {
+        private const val TAG = "HotspotFragment"
+    }
 }

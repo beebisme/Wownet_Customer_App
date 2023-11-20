@@ -18,8 +18,8 @@
     <string name="type_a_message">Type a message</string>
     <string name="wowrack_customer_service">Wowrack Customer Service</string>
     <string name="this_is_a_custom_toast">This is a custom Toast</string>
-    
-<!--    command  -->
+
+    <!--    command  -->
     <string-array name="data_command">
         <item>Test 1</item>
         <item>Test 2</item>
@@ -32,4 +32,5 @@
         <item>Test 2</item>
         <item>Test 3</item>
     </string-array>
+    <string name="title_activity_hotspot">HotspotActivity</string>
 </resources>
