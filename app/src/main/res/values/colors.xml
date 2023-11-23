@@ -8,4 +8,5 @@
     <color name="primary">#202844</color>
     <color name="secondary">#14192B</color>
     <color name="red">#DC3545</color>
+    <color name="bgScreenColor">#EEF0F6</color>
 </resources>

@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/bgScreenColor"
     tools:context=".ui.login.LoginActivity">
 
     <ProgressBar
@@ -21,7 +23,7 @@
         android:id="@+id/logoImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_100sdp"
+        android:layout_marginTop="80dp"
         android:contentDescription="@string/wowrack_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,9 +34,7 @@
         android:id="@+id/emailTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_54sdp"
-        android:layout_marginTop="@dimen/_40sdp"
-        android:layout_marginEnd="@dimen/_54sdp"
+        android:layout_marginTop="32dp"
         android:hint="@string/email_hint"
         android:padding="@dimen/_4sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,12 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:inputType="text"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,21 +57,24 @@
         android:id="@+id/passwordTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_54sdp"
-        android:layout_marginTop="@dimen/_32sdp"
-        android:layout_marginEnd="@dimen/_54sdp"
+        android:layout_marginTop="4dp"
         android:padding="@dimen/_4sdp"
         android:hint="@string/password_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextField">
+        app:layout_constraintTop_toBottomOf="@+id/emailTextField"
+        >
 
         <com.example.wowrackcustomerapp.customview.PasswordEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,10 +83,8 @@
         android:id="@+id/button_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_54sdp"
-        android:layout_marginEnd="@dimen/_54sdp"
+        android:layout_marginTop="32dp"
         app:buttonText="@string/login"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

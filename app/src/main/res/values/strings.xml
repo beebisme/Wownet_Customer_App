@@ -33,4 +33,12 @@
         <item>Test 3</item>
     </string-array>
     <string name="title_activity_hotspot">HotspotActivity</string>
+    <string name="name">Name</string>
+    <string name="name_value">Alexander Peter</string>
+    <string name="address">Address</string>
+    <string name="address_value">Jl. Pahlawan no 47 Saranjana</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="phone_value">+01 44332345554</string>
+    <string name="change_data">want to change data?</string>
+    <string name="contact_cs">Contact CS</string>
 </resources>

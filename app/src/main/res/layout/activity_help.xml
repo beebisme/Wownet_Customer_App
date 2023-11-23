@@ -84,6 +84,7 @@
         android:overScrollMode="never"
         android:padding="@dimen/_20sdp"
         android:visibility="visible"
+        android:background="@color/bgScreenColor"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/commandRecyclerView"
         app:layout_constraintTop_toBottomOf="@id/viewSupporter" />

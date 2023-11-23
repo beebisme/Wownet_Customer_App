@@ -72,6 +72,6 @@ dependencies {
 
 //    Rounded ImageView
     implementation("com.makeramen:roundedimageview:2.3.0")
-
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
 }
