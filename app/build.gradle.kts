@@ -67,8 +67,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
 
 //    Scalable Size Units (Support for different screen sizes)
-    implementation("com.intuit.sdp:sdp-android:1.0.6")
-    implementation("com.intuit.ssp:ssp-android:1.0.6")
+    implementation("com.intuit.sdp:sdp-android:1.1.0")
+    implementation("com.intuit.ssp:ssp-android:1.1.0")
 
 //    Rounded ImageView
     implementation("com.makeramen:roundedimageview:2.3.0")
