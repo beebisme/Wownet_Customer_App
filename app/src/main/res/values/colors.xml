@@ -9,4 +9,6 @@
     <color name="secondary">#14192B</color>
     <color name="red">#DC3545</color>
     <color name="bgScreenColor">#EEF0F6</color>
+    <color name="grey">#A9A9A9</color>
+    <color name="light_grey">#E2E2E2</color>
 </resources>
