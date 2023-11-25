@@ -3,14 +3,14 @@ package com.example.wowrackcustomerapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wowrackcustomerapp.data.model.Hero
-import com.example.wowrackcustomerapp.databinding.ItemHeroBinding
+import com.example.wowrackcustomerapp.data.models.Articles
+import com.example.wowrackcustomerapp.databinding.ItemArticleBinding
 
 
-class ArticleAdapter(private val listArticle: List<Hero>) : RecyclerView.Adapter<ArticleAdapter.ListViewHolder>() {
+class ArticleAdapter(private val listArticle: List<Articles>) : RecyclerView.Adapter<ArticleAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val binding: ItemHeroBinding = ItemHeroBinding.inflate(
+        val binding: ItemArticleBinding = ItemArticleBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return ListViewHolder(binding)
@@ -23,10 +23,10 @@ class ArticleAdapter(private val listArticle: List<Hero>) : RecyclerView.Adapter
         holder.bind(article)
     }
 
-    class ListViewHolder(private val binding: ItemHeroBinding) :
+    class ListViewHolder(private val binding: ItemArticleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(article: Hero) {
+        fun bind(article: Articles) {
             binding.apply {
                 ivCloudRaya.setImageResource(article.photo)
                 tvCloudRaya.text = article.name

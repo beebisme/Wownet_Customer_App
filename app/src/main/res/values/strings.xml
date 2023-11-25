@@ -52,22 +52,22 @@
     <string name="current_month">/ bulan ini</string>
     <string name="see_detail">Lihat Detail</string>
     <string name="articles">Articles</string>
-    <string name="first_name">Wowrack Luncurkan Tr...</string>
-    <string name="second_name">Singapore Huawei Clou...</string>
-    <string name="third_name">Wowrack kenalkan Clo...</string>
-    <string name="first_description">Hadir dengan logo baru, Cloud Raya version 2.0 memperkenalkan RAYA. Cloud Raya merupakan brand layanan...</string>
-    <string name="second_description">Huawei telah lama dikenal sebagai perusahaan produsen alat komunikasi...</string>
+    <string name="first_name">Wowrack Luncurkan Tr…</string>
+    <string name="second_name">Singapore Huawei Clou…</string>
+    <string name="third_name">Wowrack kenalkan Clo…</string>
+    <string name="first_description">Hadir dengan logo baru, Cloud Raya version 2.0 memperkenalkan RAYA. Cloud Raya merupakan brand layanan…</string>
+    <string name="second_description">Huawei telah lama dikenal sebagai perusahaan produsen alat komunikasi…</string>
     <string name="third_description">Pada era digitalisasi seperti saat ini, kemajuan teknologi mengalami perkembangan yuang cukup pesat</string>
 
     <string-array name="data_name">
-        <item>Wowrack Luncurkan Tr...</item>
-        <item>Singapore Huawei Clo...</item>
-        <item>Wowrack kenalkan...</item>
+        <item>Wowrack Luncurkan Tr…</item>
+        <item>Singapore Huawei Clo…</item>
+        <item>Wowrack kenalkan…</item>
     </string-array>
 
     <string-array name="data_description">
-        <item>Hadir dengan logo baru, Cloud Raya version 2.0 memperkenalkan RAYA. Cloud Raya merupakan brand layanan...</item>
-        <item>Huawei telah lama dikenal sebagai perusahaan produsen alat komunikasi...</item>
+        <item>Hadir dengan logo baru, Cloud Raya version 2.0 memperkenalkan RAYA. Cloud Raya merupakan brand layanan…</item>
+        <item>Huawei telah lama dikenal sebagai perusahaan produsen alat komunikasi…</item>
         <item>Pada era digitalisasi seperti saat ini, kemajuan teknologi mengalami perkembangan yuang cukup pesat</item>
     </string-array>
 

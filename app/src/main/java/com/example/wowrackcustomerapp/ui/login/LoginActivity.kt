@@ -2,7 +2,6 @@ package com.example.wowrackcustomerapp.ui.login
 
 import android.content.ContentValues
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,16 +13,12 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
-import com.example.wowrackcustomerapp.R
-import com.example.wowrackcustomerapp.customview.showCustomToast
 import com.example.wowrackcustomerapp.data.api.ApiConfig
-import com.example.wowrackcustomerapp.data.model.UserModel
+import com.example.wowrackcustomerapp.data.models.UserModel
 import com.example.wowrackcustomerapp.data.response.LoginResponse
 import com.example.wowrackcustomerapp.databinding.ActivityLoginBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.main.MainActivity
-import com.example.wowrackcustomerapp.ui.main.MainViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -126,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
                     }else{
                         progressBar.visibility = View.GONE
                         binding.buttonLogin.isEnabled = true
-                        Toast.makeText(this@LoginActivity,response.message(), Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@LoginActivity,responseBody, Toast.LENGTH_LONG).show()
 //                        AlertDialog.Builder(this@LoginActivity).apply {
 //                            setTitle("Ooops!")
 //                            setMessage("Login failed")

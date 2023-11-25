@@ -1,4 +1,4 @@
-package com.example.wowrackcustomerapp.data.model
+package com.example.wowrackcustomerapp.data.models
 
 data class UserModel(
     val userId : String,

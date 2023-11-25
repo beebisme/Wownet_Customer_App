@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 //                    loadFragment(HelpFragment())
                     val intent = Intent(this,HelpActivity::class.java)
                     startActivity(intent)
-                    true
+                    false
                 }
                 R.id.profile -> {
                     loadFragment(ProfileFragment())

@@ -55,7 +55,8 @@
         android:id="@+id/viewSupporter"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_45sdp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/imageBack" />
     <TextView
         android:id="@+id/textName"
@@ -79,15 +80,18 @@
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/bgScreenColor"
         android:clipToPadding="false"
         android:orientation="vertical"
         android:overScrollMode="never"
         android:padding="@dimen/_20sdp"
         android:visibility="visible"
-        android:background="@color/bgScreenColor"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/commandRecyclerView"
-        app:layout_constraintTop_toBottomOf="@id/viewSupporter" />
+        app:layout_constraintEnd_toEndOf="@+id/viewBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewSupporter"
+        app:stackFromEnd="false" />
 
 
 
@@ -100,6 +104,7 @@
         android:overScrollMode="never"
         android:padding="@dimen/_10sdp"
         android:visibility="visible"
+        android:background="@color/bgScreenColor"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@+id/viewBackground" />
 

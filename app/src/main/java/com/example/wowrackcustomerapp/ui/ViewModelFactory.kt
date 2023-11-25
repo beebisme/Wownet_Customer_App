@@ -7,6 +7,7 @@ import com.example.wowrackcustomerapp.data.injection.Injection
 import com.example.wowrackcustomerapp.data.repository.UserRepository
 import com.example.wowrackcustomerapp.ui.login.LoginViewModel
 import com.example.wowrackcustomerapp.ui.main.MainViewModel
+import com.example.wowrackcustomerapp.ui.main.section.help.HelpViewModel
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -22,6 +23,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HelpViewModel::class.java) -> {
+                HelpViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

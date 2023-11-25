@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.adapter.ArticleAdapter
-import com.example.wowrackcustomerapp.data.model.Hero
+import com.example.wowrackcustomerapp.data.models.Articles
 import com.example.wowrackcustomerapp.databinding.FragmentHomeBinding
 
 
@@ -39,13 +39,13 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    private fun getListArticle(): List<Hero> {
+    private fun getListArticle(): List<Articles> {
         val dataName = resources.getStringArray(R.array.data_name)
         val dataDescription = resources.getStringArray(R.array.data_description)
         val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
 
         return dataName.indices.map { i ->
-            Hero(dataName[i], dataDescription[i], dataPhoto.getResourceId(i, -1))
+            Articles(dataName[i], dataDescription[i], dataPhoto.getResourceId(i, -1))
         }
     }
 }

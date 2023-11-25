@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "272268082442",
+    "project_id": "wowrackcustomerapp",
+    "storage_bucket": "wowrackcustomerapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272268082442:android:24f0987956affdb0fe4ef3",
+        "android_client_info": {
+          "package_name": "com.example.wowrackcustomerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC65bsCnOfmKdpo6_quqmkyWouJ426uhEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

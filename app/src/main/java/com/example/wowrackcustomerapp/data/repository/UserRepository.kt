@@ -1,6 +1,6 @@
 package com.example.wowrackcustomerapp.data.repository
 
-import com.example.wowrackcustomerapp.data.model.UserModel
+import com.example.wowrackcustomerapp.data.models.UserModel
 import com.example.wowrackcustomerapp.data.pref.UserPreference
 import kotlinx.coroutines.flow.Flow
 
