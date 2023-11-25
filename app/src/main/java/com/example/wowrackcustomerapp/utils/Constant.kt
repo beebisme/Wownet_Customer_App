@@ -6,5 +6,5 @@ object Constant {
     final const val KEY_RECEIVER_ID = "receiverId"
     final const val KEY_MESSAGE = "message"
     final const val KEY_TIMESTAMP = "timestamp"
-    final const val RECEIVER_ID = "CustomerService"
+    final const val RECEIVER_ID = "user-aE3Nt23hXSDRU5TA"
 }

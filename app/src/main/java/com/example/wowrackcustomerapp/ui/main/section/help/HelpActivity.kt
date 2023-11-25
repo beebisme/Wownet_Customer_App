@@ -1,63 +1,50 @@
 package com.example.wowrackcustomerapp.ui.main.section.help
 
-import android.content.Intent
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.databinding.ActivityHelpBinding
-import com.example.wowrackcustomerapp.ui.main.MainActivity
 import com.example.wowrackcustomerapp.adapter.ChatAdapter
 import com.example.wowrackcustomerapp.adapter.CommandAdapter
 import com.example.wowrackcustomerapp.data.models.ChatMessage
 import com.example.wowrackcustomerapp.data.models.Commands
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
-import com.example.wowrackcustomerapp.ui.main.MainViewModel
 import com.example.wowrackcustomerapp.utils.Constant
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
-import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.ktx.Firebase
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class HelpActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHelpBinding
-//    private lateinit var chatAdapter: ChatAdapter
+    private lateinit var chatAdapter: ChatAdapter
 
     //    private lateinit var chatMessage: List<ChatMessage>
-//    private lateinit var chatMessage: ArrayList<ChatMessage>
+    private lateinit var chatMessage: MutableList<ChatMessage>
     private var chatList = ArrayList<ChatMessage>()
     private val listCmd = ArrayList<Commands>()
     private lateinit var database: FirebaseDatabase
     private val viewModel by viewModels<HelpViewModel> {
         ViewModelFactory.getInstance(this)
     }
-    private var senderId: String = ""
+    private lateinit var senderId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHelpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        senderId = intent.getStringExtra("senderId").toString()
+        Log.d("senderOncreate",senderId)
         setupView()
         setListeners()
-        readMessage(senderId,Constant.RECEIVER_ID)
+        readMessage(senderId, Constant.RECEIVER_ID)
 
     }
 
@@ -70,11 +57,12 @@ class HelpActivity : AppCompatActivity() {
             // Handle the send button click here
 //            sendMessage()
             var message = binding.inputMessage.text.toString()
-            if (message.isEmpty()){
-                Toast.makeText(applicationContext,"Message can't b empty", Toast.LENGTH_SHORT).show()
+            if (message.isEmpty()) {
+                Toast.makeText(applicationContext, "Message can't b empty", Toast.LENGTH_SHORT)
+                    .show()
                 binding.inputMessage.text = null
-            }else{
-                sendMessage(senderId,Constant.RECEIVER_ID,message)
+            } else {
+                sendMessage(senderId, Constant.RECEIVER_ID, message)
                 binding.inputMessage.text = null
             }
         }
@@ -84,18 +72,18 @@ class HelpActivity : AppCompatActivity() {
     private fun setupView() {
         viewModel.getSession().observe(this) { user ->
             senderId = user.userId
+            Log.d("senderGetSession",senderId)
         }
         Log.d("sender", senderId)
         // Initialize chatMessage with your data
-//        chatMessage = mutableListOf(
-//            ChatMessage(1, senderId, "CustomerService", "Test!"),
-//            ChatMessage(2, "CustomerService", senderId, "test123!")
-//            // Add more messages as needed
-//        )
+        chatMessage = mutableListOf(
+            ChatMessage(1, senderId, "CustomerService", "Test!"),
+            ChatMessage(2, "CustomerService", senderId, "test123!")
+            // Add more messages as needed
+        )
 
 //        chatMessage = ArrayList()
-//        chatAdapter = ChatAdapter(chatMessage, senderId)
-//        binding.chatRecyclerView.adapter = chatAdapter
+
 //        chatList = ArrayList<ChatMessage>()
 //        chatAdapter = ChatAdapter(this@HelpActivity, chatList, senderId)
 
@@ -106,7 +94,14 @@ class HelpActivity : AppCompatActivity() {
         val listCommandAdapter = CommandAdapter(listCmd)
         binding.commandRecyclerView.adapter = listCommandAdapter
         listCmd.addAll(getCmd())
-        database = FirebaseDatabase.getInstance("https://wowrackcustomerapp-default-rtdb.asia-southeast1.firebasedatabase.app")
+        database =
+            FirebaseDatabase.getInstance("https://wowrackcustomerapp-default-rtdb.asia-southeast1.firebasedatabase.app")
+//        chatList.addAll(readMessage(senderId,Constant.RECEIVER_ID))
+//        val chatAdapter = ChatAdapter(chatList, senderId)
+//
+//        binding.chatRecyclerView.adapter = chatAdapter
+//        chatAdapter = ChatAdapter(chatMessage, senderId)
+//        binding.chatRecyclerView.adapter = chatAdapter
 
     }
 
@@ -200,14 +195,23 @@ class HelpActivity : AppCompatActivity() {
             message = message
         )
 
+        chatMessage = mutableListOf(
+            ChatMessage(
+                senderId = senderId,
+                receiverId = receiverId,
+                message = message
+            )
+        )
+
 //        reference.setValue(hashMap)
         reference.child("Chat").push().setValue(hashMap)
-        Log.d("send","berhasil")
-        chatList.add(chat)
+        Log.d("send", "berhasil")
+        chatMessage.add(chat)
+        Log.d("chatList", chatMessage.toString())
 
     }
 
-//    private fun readMessage(senderId: String, receiverId: String){
+    //    private fun readMessage(senderId: String, receiverId: String){
 ////        val database = Firebase.database
 //        var databaseReference: DatabaseReference =
 //            FirebaseDatabase.getInstance("https://wowrackcustomerapp-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Chat")
@@ -240,31 +244,94 @@ class HelpActivity : AppCompatActivity() {
 //
 //        })
 //    }
-fun readMessage(senderId: String, receiverId: String) {
-    val databaseReference: DatabaseReference =
-        FirebaseDatabase.getInstance().getReference("Chat")
+    private fun readMessage(senderId: String, receiverId: String) {
+        val databaseReference: DatabaseReference =
+            FirebaseDatabase.getInstance(" https://wowrackcustomerapp-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Chat")
 
-    databaseReference.addValueEventListener(object : ValueEventListener {
-        override fun onCancelled(error: DatabaseError) {
-            TODO("Not yet implemented")
-        }
-
-        override fun onDataChange(snapshot: DataSnapshot) {
-            chatList.clear()
-            for (dataSnapShot: DataSnapshot in snapshot.children) {
-                val chat = dataSnapShot.getValue(ChatMessage::class.java)
-
-                if (chat!!.senderId.equals(senderId) && chat!!.receiverId.equals(receiverId) ||
-                    chat!!.senderId.equals(receiverId) && chat!!.receiverId.equals(senderId)
-                ) {
-                    chatList.add(chat)
-                }
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("HelpDb", "Failed to read value.", error.toException())
             }
 
-            val chatAdapter = ChatAdapter(this@HelpActivity, chatList,senderId)
+            override fun onDataChange(snapshot: DataSnapshot) {
+//            val value = snapshot.getValue<String>() as HashMap<*,*>
+//            Log.d("HelpDb", "Value is: $value")
+//            chatList.clear()
+//            for (dataSnapShot: DataSnapshot in snapshot.children) {
+//                val chat = dataSnapShot.getValue(ChatMessage::class.java)
+//
+//                if (chat!!.senderId.equals(senderId) && chat!!.receiverId.equals(receiverId) ||
+//                    chat!!.senderId.equals(receiverId) && chat!!.receiverId.equals(senderId)
+//                ) {
+//                    chatList.add(chat)
+//                }
+//            }
+                chatMessage.clear()
+                for (dataSnapShot: DataSnapshot in snapshot.children) {
+                    val chatData = dataSnapShot.value as HashMap<*, *>
+                    val chat = ChatMessage(
+                        senderId = chatData["senderId"].toString(),
+                        receiverId = chatData["receiverId"].toString(),
+                        message = chatData["message"].toString()
+                    )
+                    Log.d("chat", chat.toString())
+                    val ceksender = chat.senderId == senderId ||
+                            chat.receiverId == senderId
+                    val cekreceiver =
+                        Log.d("ceksender", ceksender.toString())
+                    Log.d("senderid", chat.senderId.toString())
+                    Log.d("sender", senderId)
+                    if (chat.senderId == senderId && chat.receiverId.equals(receiverId)||
+                        chat.receiverId == senderId && chat.receiverId.equals(senderId)
+                    ) {
+                        chatMessage.add(chat)
+                    }
+                }
+                chatAdapter = ChatAdapter(chatMessage, senderId)
+                binding.chatRecyclerView.adapter = chatAdapter
+            }
+        })
+    }
+//    private fun readMessage(senderId: String, receiverId: String) {
+//        val databaseReference: DatabaseReference =
+//            FirebaseDatabase.getInstance("https://wowrackcustomerapp-default-rtdb.asia-southeast1.firebasedatabase.app")
+//                .getReference("Chat")
+//
+//        databaseReference.addValueEventListener(object : ValueEventListener {
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.w("HelpDb", "Failed to read value.", error.toException())
+//            }
+//
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                val tempChatMessage = mutableListOf<ChatMessage>() // Create a temporary list
+//
+//                for (dataSnapShot: DataSnapshot in snapshot.children) {
+//                    val chatData = dataSnapShot.value as HashMap<*, *>
+//                    val chat = ChatMessage(
+//                        senderId = chatData["senderId"].toString(),
+//                        receiverId = chatData["receiverId"].toString(),
+//                        message = chatData["message"].toString()
+//                    )
+//                    Log.d("chat", chat.toString())
+//
+////                    if (chat.senderId == senderId && chat.receiverId == receiverId ||
+////                        chat.senderId == receiverId && chat.receiverId == senderId
+////                    ) {
+//                        tempChatMessage.add(chat)
+////                    }
+//                }
+//
+//                runOnUiThread {
+//                    chatMessage.clear() // Clear the existing list
+//                    chatMessage.addAll(tempChatMessage) // Add items from the temporary list
+//
+//                    Log.d("HelpDb", "Chat message count: ${chatMessage.size}")
+//                    chatAdapter.notifyDataSetChanged()
+//                }
+//            }
+//        })
+//    }
 
-            binding.chatRecyclerView.adapter = chatAdapter
-        }
-    })
-}
+
 }

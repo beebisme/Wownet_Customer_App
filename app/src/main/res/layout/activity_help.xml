@@ -84,14 +84,14 @@
         android:clipToPadding="false"
         android:orientation="vertical"
         android:overScrollMode="never"
-        android:padding="@dimen/_20sdp"
+        android:padding="@dimen/_10sdp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/commandRecyclerView"
         app:layout_constraintEnd_toEndOf="@+id/viewBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewSupporter"
-        app:stackFromEnd="false" />
+        app:stackFromEnd="true" />
 
 
 
