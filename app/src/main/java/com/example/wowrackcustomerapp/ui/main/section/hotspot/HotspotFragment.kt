@@ -2,11 +2,19 @@ package com.example.wowrackcustomerapp.ui.main.section.hotspot
 
 import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import com.example.wowrackcustomerapp.R
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -83,58 +91,100 @@ class HotspotFragment : Fragment(), OnMapReadyCallback {
         mMap.uiSettings.isMapToolbarEnabled = true
         getMyLocation()
         setMapStyle()
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val wowrack = LatLng(-7.2562291345723535, 112.7432314807603)
+        googleMap.addMarker(
+            MarkerOptions()
+                .position(wowrack)
+                .title("Wowrack Indonesia")
+                .icon(vectorToBitmap(R.drawable.logo,Color.parseColor("#FFFFFF")))
+        )
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(wowrack))
     }
-
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                getMyLocation()
+            }
+        }
     private fun getMyLocation() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                MY_PERMISSIONS_REQUEST_LOCATION
-            )
-        } else {
             mMap.isMyLocationEnabled = true
-            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                location?.let {
-                    val myLatLng = LatLng(location.latitude, location.longitude)
-                    myLocationMarker?.remove() // Remove previous marker if exists
-                    myLocationMarker =
-                        mMap.addMarker(MarkerOptions().position(myLatLng).title("My Location"))
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng))
-                    mMap.animateCamera(
-                        CameraUpdateFactory.newCameraPosition(
-                            CameraPosition.fromLatLngZoom(myLatLng, 15f)
-                        )
-                    )
-                }
-            }
+        } else {
+            requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
         }
+    }
+    private fun vectorToBitmap(@DrawableRes id: Int, @ColorInt color: Int): BitmapDescriptor {
+        val vectorDrawable = ResourcesCompat.getDrawable(resources, id, null)
+        if (vectorDrawable == null) {
+            Log.e("BitmapHelper", "Resource not found")
+            return BitmapDescriptorFactory.defaultMarker()
+        }
+        val bitmap = Bitmap.createBitmap(
+            100,
+            100,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
+//        DrawableCompat.setTint(vectorDrawable, color)
+        vectorDrawable.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            MY_PERMISSIONS_REQUEST_LOCATION -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getMyLocation()
-                } else {
-                    // Handle permission denied
-                }
-                return
-            }
-        }
-    }
+
+//    private fun getMyLocation() {
+//        if (ContextCompat.checkSelfPermission(
+//                requireContext(),
+//                android.Manifest.permission.ACCESS_FINE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                requireActivity(),
+//                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+//                MY_PERMISSIONS_REQUEST_LOCATION
+//            )
+//        } else {
+//            mMap.isMyLocationEnabled = true
+//            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+//                location?.let {
+//                    val myLatLng = LatLng(location.latitude, location.longitude)
+//                    myLocationMarker?.remove() // Remove previous marker if exists
+//                    myLocationMarker =
+//                        mMap.addMarker(MarkerOptions().position(myLatLng).title("My Location"))
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng))
+//                    mMap.animateCamera(
+//                        CameraUpdateFactory.newCameraPosition(
+//                            CameraPosition.fromLatLngZoom(myLatLng, 15f)
+//                        )
+//                    )
+//                }
+//            }
+//        }
+//    }
+
+//    @Deprecated("Deprecated in Java")
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        when (requestCode) {
+//            MY_PERMISSIONS_REQUEST_LOCATION -> {
+//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    getMyLocation()
+//                } else {
+//                    // Handle permission denied
+//                }
+//                return
+//            }
+//        }
+//    }
 
     private fun setMapStyle() {
         try {
