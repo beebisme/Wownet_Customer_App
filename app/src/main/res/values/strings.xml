@@ -71,21 +71,62 @@
 
     <string-array name="data_name">
         <item>Wowrack Luncurkan Transformasi Layana...</item>
-                <item>Singapore Huawei Clo…</item>
-                <item>Wowrack kenalkan…</item>
+        <item>Singapore Huawei Clo…</item>
+        <item>Wowrack kenalkan…</item>
     </string-array>
 
     <string-array name="data_description">
         <item>Hadir dengan logo baru, Cloud Raya version 2.0 memperkenalkan RAYA. Cloud Raya merupakan brand layanan…</item>
-                <item>Huawei telah lama dikenal sebagai perusahaan produsen alat komunikasi…</item>
-                <item>Pada era digitalisasi seperti saat ini, kemajuan teknologi mengalami perkembangan yuang cukup pesat</item>
+        <item>Huawei telah lama dikenal sebagai perusahaan produsen alat komunikasi…</item>
+        <item>Pada era digitalisasi seperti saat ini, kemajuan teknologi mengalami perkembangan yuang cukup pesat</item>
     </string-array>
 
     <!--    Data photo-->
     <integer-array name="data_photo">
         <item>@drawable/cloudraya</item>
-                <item>@drawable/photo_articel2</item>
-                <item>@drawable/people_article</item>
+        <item>@drawable/photo_articel2</item>
+        <item>@drawable/people_article</item>
     </integer-array>
+
+    <!--  Profile Screen  -->
+    <string name="my_account_title">My Account</string>
+
+    <!--  Service Data  -->
+    <string-array name="service_name">
+        <item>Silver Package</item>
+        <item>Silver Package</item>
+    </string-array>
+
+    <string-array name="service_specs">
+        <item>Up to 30Mbps</item>
+        <item>Up to 30Mbps</item>
+    </string-array>
+
+    <string-array name="service_date">
+        <item>Service Date : 15 September 2023</item>
+        <item>Service Date : 15 September 2023</item>
+    </string-array>
+
+    <string-array name="service_location">
+        <item>Location : Dharmanusada Indah VI no.100, Surabaya</item>
+        <item>Location : Dharmanusada Indah VI no.100, Surabaya</item>
+    </string-array>
+
+    <!--  Invoice data  -->
+    <string-array name="invoice_data">
+        <item>1 sep 2023 INV-12345 IDR 399.000</item>
+        <item>1 sep 2023 INV-12345 IDR 399.000</item>
+    </string-array>
+
+    <!--  Modify Package Data  -->
+    <string-array name="item_package">
+        <item>Gold Package</item>
+        <item>Diamond Package</item>
+    </string-array>
+
+    <string-array name="item_specs">
+        <item>Up to 50Mbps</item>
+        <item>Up to 1Gbps</item>
+    </string-array>
 
 </resources>

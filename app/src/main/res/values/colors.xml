@@ -10,5 +10,6 @@
     <color name="red">#DC3545</color>
     <color name="bgScreenColor">#EEF0F6</color>
     <color name="grey">#A9A9A9</color>
+    <color name="dark_grey">#6B6B6B</color>
     <color name="light_grey">#E2E2E2</color>
 </resources>

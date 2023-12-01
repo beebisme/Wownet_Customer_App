@@ -10,6 +10,7 @@ import com.example.wowrackcustomerapp.adapter.ArticleAdapter
 import com.example.wowrackcustomerapp.data.models.Articles
 import com.example.wowrackcustomerapp.databinding.ActivityHomeBinding
 import com.example.wowrackcustomerapp.ui.main.section.detail.DetailTraffic
+import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeActivity : AppCompatActivity() {
@@ -47,6 +48,10 @@ class HomeActivity : AppCompatActivity() {
             clTrafficUsage2.setOnClickListener {
                 // Memulai DetailTrafficActivity
                 startActivity(Intent(this@HomeActivity, DetailTraffic::class.java))
+            }
+
+            profilePhoto.setOnClickListener {
+                startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
             }
         }
 
