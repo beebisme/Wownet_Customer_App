@@ -57,7 +57,7 @@
     <string name="third_name">Wowrack kenalkan Clo…</string>
     <string name="first_description">Hadir dengan logo baru, Cloud Raya version 2.0 memperkenalkan RAYA. Cloud Raya merupakan brand layanan…</string>
     <string name="second_description">Huawei telah lama dikenal sebagai perusahaan produsen alat komunikasi…</string>
-    <string name="third_description">Pada era digitalisasi seperti saat ini, kemajuan teknologi mengalami perkembangan yuang cukup pesat</string>
+    <string name="third_description">Pada era digitalisasi seperti saat ini, kemajuan teknologi mengalami perkembangan yang cukup pesat</string>
     <string name="home_location">Location Name</string>
     <string name="traffic_usage_date">15 Aug 2023 :</string>
     <string name="amount_data">300GB</string>
@@ -90,6 +90,7 @@
 
     <!--  Profile Screen  -->
     <string name="my_account_title">My Account</string>
+    <string name="news_articles">News Articles</string>
 
     <!--  Service Data  -->
     <string-array name="service_name">

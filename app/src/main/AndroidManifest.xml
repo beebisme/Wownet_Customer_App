@@ -20,6 +20,9 @@
             android:name=".ui.main.section.profile.ProfileActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.main.section.article.NewsArticles"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.section.hotspot.WownetHotspot"
             android:exported="false" />
         <activity
