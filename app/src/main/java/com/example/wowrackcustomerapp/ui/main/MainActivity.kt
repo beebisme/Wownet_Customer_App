@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.example.wowrackcustomerapp.R
@@ -12,7 +11,6 @@ import com.example.wowrackcustomerapp.databinding.ActivityMainBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.login.LoginActivity
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpActivity
-import com.example.wowrackcustomerapp.ui.main.section.home.HomeFragment
 import com.example.wowrackcustomerapp.ui.main.section.hotspot.HotspotFragment
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileFragment
 
@@ -49,13 +47,13 @@ class MainActivity : AppCompatActivity() {
         setupView()
     }
     private fun setupView(){
-        loadFragment(HomeFragment())
+//        loadFragment(HomeFragment())
         binding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.home -> {
-                    loadFragment(HomeFragment())
-                    true
-                }
+//                R.id.home -> {
+//                    loadFragment(HomeFragment())
+//                    true
+//                }
                 R.id.hotspot -> {
                     loadFragment(HotspotFragment())
 //                    val intent = Intent(this,HotspotActivity::class.java)

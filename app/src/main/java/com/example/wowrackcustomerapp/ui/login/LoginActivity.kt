@@ -19,6 +19,7 @@ import com.example.wowrackcustomerapp.data.response.LoginResponse
 import com.example.wowrackcustomerapp.databinding.ActivityLoginBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.main.MainActivity
+import com.example.wowrackcustomerapp.ui.main.section.home.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewModel.getSession().observe(this){user->
             if (user.isLogin){
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             }else{
                 binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -85,32 +86,40 @@ class LoginActivity : AppCompatActivity() {
                                 )
                             )
                             ViewModelFactory.clearInstance()
-                            Toast.makeText(this@LoginActivity,responseBody.message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                this@LoginActivity,
+                                responseBody.message,
+                                Toast.LENGTH_LONG
+                            ).show()
 //                            Toast(this@LoginActivity).showCustomToast("Selamat Anda Berhasil Login",this@LoginActivity, ColorDrawable(getColor(R.color.primary)))
 //                            AlertDialog.Builder(this@LoginActivity).apply {
 //                                setTitle("Yeah!")
 //                                setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
 //                                setPositiveButton("Lanjut") { _, _ ->
-                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                                    intent.flags =
-                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                    startActivity(intent)
-                                    finish()
+                            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
+                            finish()
 //                                }
 //                                create()
 //                                show()
 //                            }
-                        }else{
+                        } else {
                             binding.buttonLogin.isEnabled = true
                             progressBar.visibility = View.GONE
-                            Toast.makeText(this@LoginActivity,responseBody.message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                this@LoginActivity,
+                                responseBody.message,
+                                Toast.LENGTH_LONG
+                            ).show()
 //                            AlertDialog.Builder(this@LoginActivity).apply {
 //                                setTitle("Ooops!")
 //                                setMessage("Login failed")
 //                                setPositiveButton("Lanjut") { _, _ ->
-                                    val intent = Intent(this@LoginActivity, LoginActivity::class.java)
-                                    intent.flags =
-                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            val intent = Intent(this@LoginActivity, LoginActivity::class.java)
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
 //                                    startActivity(intent)
 //                                    finish()
 //                                }
@@ -118,23 +127,24 @@ class LoginActivity : AppCompatActivity() {
 //                                show()
 //                            }
                         }
-                    }else{
-                        progressBar.visibility = View.GONE
-                        binding.buttonLogin.isEnabled = true
-                        Toast.makeText(this@LoginActivity,responseBody, Toast.LENGTH_LONG).show()
-//                        AlertDialog.Builder(this@LoginActivity).apply {
-//                            setTitle("Ooops!")
-//                            setMessage("Login failed")
-//                            setPositiveButton("Lanjut") { _, _ ->
-                                val intent = Intent(this@LoginActivity, LoginActivity::class.java)
-                                intent.flags =
-                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                                startActivity(intent)
-//                                finish()
-//                            }
-//                            create()
-//                            show()
-//                        }
+//                    }else{
+//                        progressBar.visibility = View.GONE
+//                        binding.buttonLogin.isEnabled = true
+//                        Toast.makeText(this@LoginActivity,responseBody, Toast.LENGTH_LONG).show()
+////                        AlertDialog.Builder(this@LoginActivity).apply {
+////                            setTitle("Ooops!")
+////                            setMessage("Login failed")
+////                            setPositiveButton("Lanjut") { _, _ ->
+//                                val intent = Intent(this@LoginActivity, LoginActivity::class.java)
+//                                intent.flags =
+//                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+////                                startActivity(intent)
+////                                finish()
+////                            }
+////                            create()
+////                            show()
+////                        }
+//                    }
                     }
                 }
 

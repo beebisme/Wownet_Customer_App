@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,7 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WowrackCustomerApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.main.section.hotspot.WownetHotspot"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.section.detail.DetailTraffic"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.section.detail.DetailArticle"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.section.home.HomeActivity"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -52,13 +63,13 @@
             android:name=".ui.main.MainActivity"
             android:exported="false"
             android:theme="@style/WowrackCustomerApp"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
 
         <service
             android:name=".data.firebase.MessagingService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>

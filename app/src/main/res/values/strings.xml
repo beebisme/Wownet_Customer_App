@@ -42,40 +42,50 @@
     <string name="change_data">want to change data?</string>
     <string name="contact_cs">Contact CS</string>
 
-<!--    Home Fragment-->
-    <string name="welcome_hello">Hello, </string>
-    <string name="home_name">Alexander</string>
-    <string name="current_service">Current Service</string>
-    <string name="see_all">See All</string>
+    <!--    Home Fragment-->
+    <string name="appbar_home">Home</string>
+    <string name="home_hotspot">Hotspot</string>
+    <string name="product">Products</string>
+    <string name="traffic">Traffic Usage</string>
     <string name="half_rack">Half Rack</string>
     <string name="price_service">Rp. 1.350.000</string>
     <string name="current_month">/ bulan ini</string>
     <string name="see_detail">Lihat Detail</string>
     <string name="articles">Articles</string>
-    <string name="first_name">Wowrack Luncurkan Tr…</string>
+    <string name="first_name">Wowrack Luncurkan Transformasi Layana...</string>
     <string name="second_name">Singapore Huawei Clou…</string>
     <string name="third_name">Wowrack kenalkan Clo…</string>
     <string name="first_description">Hadir dengan logo baru, Cloud Raya version 2.0 memperkenalkan RAYA. Cloud Raya merupakan brand layanan…</string>
     <string name="second_description">Huawei telah lama dikenal sebagai perusahaan produsen alat komunikasi…</string>
     <string name="third_description">Pada era digitalisasi seperti saat ini, kemajuan teknologi mengalami perkembangan yuang cukup pesat</string>
+    <string name="home_location">Location Name</string>
+    <string name="traffic_usage_date">15 Aug 2023 :</string>
+    <string name="amount_data">300GB</string>
+    <string name="see_all">See All</string>
+    <string name="silver_package">Silver Package</string>
+    <string name="signal">Up to 30 Mbps</string>
+    <string name="service_date">Service Date :</string>
+    <string name="detail_service_traffic_date">15 September 2023</string>
+    <string name="location_traffic">Location :</string>
+    <string name="traffic_address">Dharmanusada Indah VI no.100, Surabaya</string>
 
     <string-array name="data_name">
-        <item>Wowrack Luncurkan Tr…</item>
-        <item>Singapore Huawei Clo…</item>
-        <item>Wowrack kenalkan…</item>
+        <item>Wowrack Luncurkan Transformasi Layana...</item>
+                <item>Singapore Huawei Clo…</item>
+                <item>Wowrack kenalkan…</item>
     </string-array>
 
     <string-array name="data_description">
         <item>Hadir dengan logo baru, Cloud Raya version 2.0 memperkenalkan RAYA. Cloud Raya merupakan brand layanan…</item>
-        <item>Huawei telah lama dikenal sebagai perusahaan produsen alat komunikasi…</item>
-        <item>Pada era digitalisasi seperti saat ini, kemajuan teknologi mengalami perkembangan yuang cukup pesat</item>
+                <item>Huawei telah lama dikenal sebagai perusahaan produsen alat komunikasi…</item>
+                <item>Pada era digitalisasi seperti saat ini, kemajuan teknologi mengalami perkembangan yuang cukup pesat</item>
     </string-array>
 
-<!--    Data photo-->
+    <!--    Data photo-->
     <integer-array name="data_photo">
         <item>@drawable/cloudraya</item>
-        <item>@drawable/photo_articel2</item>
-        <item>@drawable/people_article</item>
+                <item>@drawable/photo_articel2</item>
+                <item>@drawable/people_article</item>
     </integer-array>
 
 </resources>
