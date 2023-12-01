@@ -16,7 +16,7 @@
         android:layout_height="@dimen/_30sdp"
         android:layout_margin="@dimen/_4sdp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/emailTextField"
+        app:layout_constraintBottom_toTopOf="@id/OTPTextField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logoImageView" />
@@ -34,19 +34,19 @@
         app:srcCompat="@drawable/logo" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailTextField"
+        android:id="@+id/OTPTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:hint="@string/type_your_otp"
         android:padding="@dimen/_4sdp"
-        app:layout_constraintBottom_toTopOf="@+id/button_login"
+        app:layout_constraintBottom_toTopOf="@+id/button_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/submitotptv">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailEditText"
+            android:id="@+id/OTPEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -59,7 +59,7 @@
 
 
     <com.example.wowrackcustomerapp.customview.ButtonCustomView
-        android:id="@+id/button_login"
+        android:id="@+id/button_submit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
@@ -68,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextField" />
+        app:layout_constraintTop_toBottomOf="@+id/OTPTextField" />
 
 
 
@@ -88,10 +88,12 @@
         android:id="@+id/submitotptv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_100sdp"
         android:text="@string/check_your_email_for_otp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/clickmeTv"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_100sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
