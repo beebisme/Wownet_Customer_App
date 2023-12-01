@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.wowrackcustomerapp.data.injection.Injection
 import com.example.wowrackcustomerapp.data.repository.UserRepository
-import com.example.wowrackcustomerapp.ui.login.LoginViewModel
+import com.example.wowrackcustomerapp.ui.auth.login.LoginViewModel
 import com.example.wowrackcustomerapp.ui.main.MainViewModel
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpViewModel
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileViewModel

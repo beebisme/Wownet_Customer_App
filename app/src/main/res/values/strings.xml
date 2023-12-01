@@ -90,6 +90,13 @@
 
     <!--  Profile Screen  -->
     <string name="my_account_title">My Account</string>
+    <string name="biometric_login_button">Biometric Login Button</string>
+    <string name="forgot_your_password">Forgot your password ?</string>
+    <string name="click_me">Click me</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="submit">Submit</string>
+    <string name="type_your_otp">Type your OTP</string>
+    <string name="check_your_email_for_otp">Check your email for OTP</string>
     <string name="news_articles">News Articles</string>
 
     <!--  Service Data  -->

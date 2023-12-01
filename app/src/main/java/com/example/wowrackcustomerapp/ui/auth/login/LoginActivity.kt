@@ -1,4 +1,4 @@
-package com.example.wowrackcustomerapp.ui.login
+package com.example.wowrackcustomerapp.ui.auth.login
 
 import android.content.ContentValues
 import android.content.Intent
@@ -18,7 +18,6 @@ import com.example.wowrackcustomerapp.data.models.UserModel
 import com.example.wowrackcustomerapp.data.response.LoginResponse
 import com.example.wowrackcustomerapp.databinding.ActivityLoginBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
-import com.example.wowrackcustomerapp.ui.main.MainActivity
 import com.example.wowrackcustomerapp.ui.main.section.home.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
