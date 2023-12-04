@@ -1,4 +1,4 @@
-package com.example.wowrackcustomerapp.ui.login
+package com.example.wowrackcustomerapp.ui.auth.login
 
 import android.content.ContentValues
 import android.content.Intent
@@ -15,42 +15,42 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.example.wowrackcustomerapp.data.api.ApiConfig
 import com.example.wowrackcustomerapp.data.models.UserModel
+import com.example.wowrackcustomerapp.data.response.LoginApiResponse
 import com.example.wowrackcustomerapp.data.response.LoginResponse
 import com.example.wowrackcustomerapp.databinding.ActivityLoginBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
-import com.example.wowrackcustomerapp.ui.main.MainActivity
+import com.example.wowrackcustomerapp.ui.auth.otp.OneTimePassActivity
 import com.example.wowrackcustomerapp.ui.main.section.home.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
-    private val viewModel by viewModels<LoginViewModel>{
+    private val viewModel by viewModels<LoginViewModel> {
         ViewModelFactory.getInstance(this)
     }
-    private lateinit var progressBar : ProgressBar
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var progressBar: ProgressBar
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getSession().observe(this){user->
-            if (user.isLogin){
-                startActivity(Intent(this, HomeActivity::class.java))
-                finish()
-            }else{
+        viewModel.getSession().observe(this) { user ->
+//            if (user.isLogin) {
+//                startActivity(Intent(this, HomeActivity::class.java))
+//                finish()
+//            } else {
                 binding = ActivityLoginBinding.inflate(layoutInflater)
                 setContentView(binding.root)
 
                 setupView()
                 setupAction()
-            }
+//            }
         }
 
     }
 
     private fun setupView() {
         progressBar = binding.progressBarLogin
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
             window.setFlags(
@@ -60,74 +60,56 @@ class LoginActivity : AppCompatActivity() {
         }
         supportActionBar?.hide()
     }
-    private fun setupAction(){
-//        val progressBar = binding.progressBar
+
+    private fun setupAction() {
+        val progressBar = binding.progressBarLogin
         binding.buttonLogin.setOnClickListener {
             binding.buttonLogin.isEnabled = false
             progressBar.visibility = View.VISIBLE
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            val client = ApiConfig.getApiService("").login(email, password)
-            client.enqueue(object : Callback<LoginResponse> {
+            val client = ApiConfig.getService("").login(email, password)
+            client.enqueue(object : Callback<LoginApiResponse> {
                 override fun onResponse(
-                    call: Call<LoginResponse>,
-                    response: Response<LoginResponse>
+                    call: Call<LoginApiResponse>,
+                    response: Response<LoginApiResponse>
                 ) {
+
                     progressBar.visibility = View.GONE
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        if (!responseBody.error) {
-                            viewModel.saveSession(
-                                UserModel(
-                                    responseBody.loginResult.userId,
-                                    responseBody.loginResult.name,
-                                    responseBody.loginResult.token,
-                                    true
-                                )
+                        viewModel.saveSession(
+                            UserModel(
+                                responseBody.data.id.toString(),
+                                responseBody.data.name,
+                                responseBody.data.email,
+                                responseBody.data.token,
+                                true
                             )
-                            ViewModelFactory.clearInstance()
-                            Toast.makeText(
-                                this@LoginActivity,
-                                responseBody.message,
-                                Toast.LENGTH_LONG
-                            ).show()
+                        )
+                        ViewModelFactory.clearInstance()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Success",
+                            Toast.LENGTH_LONG
+                        ).show()
 //                            Toast(this@LoginActivity).showCustomToast("Selamat Anda Berhasil Login",this@LoginActivity, ColorDrawable(getColor(R.color.primary)))
 //                            AlertDialog.Builder(this@LoginActivity).apply {
 //                                setTitle("Yeah!")
 //                                setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
 //                                setPositiveButton("Lanjut") { _, _ ->
-                            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                            startActivity(intent)
-                            finish()
+                        val intent = Intent(this@LoginActivity, OneTimePassActivity::class.java)
+                        intent.putExtra("token",responseBody.data.token.toString())
+                        intent.putExtra("email",responseBody.data.email.toString())
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
 //                                }
 //                                create()
 //                                show()
 //                            }
-                        } else {
-                            binding.buttonLogin.isEnabled = true
-                            progressBar.visibility = View.GONE
-                            Toast.makeText(
-                                this@LoginActivity,
-                                responseBody.message,
-                                Toast.LENGTH_LONG
-                            ).show()
-//                            AlertDialog.Builder(this@LoginActivity).apply {
-//                                setTitle("Ooops!")
-//                                setMessage("Login failed")
-//                                setPositiveButton("Lanjut") { _, _ ->
-                            val intent = Intent(this@LoginActivity, LoginActivity::class.java)
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                                    startActivity(intent)
-//                                    finish()
-//                                }
-//                                create()
-//                                show()
-//                            }
-                        }
-//                    }else{
+                        //                    }else{
 //                        progressBar.visibility = View.GONE
 //                        binding.buttonLogin.isEnabled = true
 //                        Toast.makeText(this@LoginActivity,responseBody, Toast.LENGTH_LONG).show()
@@ -145,10 +127,12 @@ class LoginActivity : AppCompatActivity() {
 ////                            show()
 ////                        }
 //                    }
+                    }else{
+                        binding.buttonLogin.isEnabled = true
                     }
                 }
 
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                override fun onFailure(call: Call<LoginApiResponse>, t: Throwable) {
                     binding.buttonLogin.isEnabled = true
                     progressBar.visibility = View.GONE
                     Log.e(ContentValues.TAG, "onFailure: ${t.message}")
@@ -163,5 +147,11 @@ class LoginActivity : AppCompatActivity() {
 
             })
         }
+//        binding.buttonLogin.setOnClickListener {
+//            val intent = Intent(this@LoginActivity, OneTimePassActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//            startActivity(intent)
+//            finish()
+//        }
     }
 }

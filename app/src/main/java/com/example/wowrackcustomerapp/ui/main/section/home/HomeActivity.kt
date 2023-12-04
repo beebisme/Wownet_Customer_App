@@ -2,6 +2,7 @@ package com.example.wowrackcustomerapp.ui.main.section.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.example.wowrackcustomerapp.databinding.ActivityHomeBinding
 import com.example.wowrackcustomerapp.ui.main.section.article.NewsArticles
 import com.example.wowrackcustomerapp.ui.main.section.detail.DetailTraffic
 import com.example.wowrackcustomerapp.ui.main.section.hotspot.WownetHotspot
+import com.example.wowrackcustomerapp.ui.main.section.help.HelpActivity
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -32,7 +34,10 @@ class HomeActivity : AppCompatActivity() {
 
         floatingActionButton = binding.floatingActionButton
         floatingActionButton.setOnClickListener {
-            // Handle FAB click here
+            val intent = Intent(this,HelpActivity::class.java)
+            intent.putExtra("senderId","1")
+            Log.d("userIdHome","1")
+            startActivity(intent)
         }
 
         // Get list of articles

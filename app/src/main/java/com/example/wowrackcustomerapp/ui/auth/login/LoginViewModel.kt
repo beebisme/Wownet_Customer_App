@@ -1,4 +1,4 @@
-package com.example.wowrackcustomerapp.ui.login
+package com.example.wowrackcustomerapp.ui.auth.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

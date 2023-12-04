@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.databinding.ActivityMainBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
-import com.example.wowrackcustomerapp.ui.login.LoginActivity
+import com.example.wowrackcustomerapp.ui.auth.login.LoginActivity
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpActivity
 import com.example.wowrackcustomerapp.ui.main.section.hotspot.HotspotFragment
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileFragment

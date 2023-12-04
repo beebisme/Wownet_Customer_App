@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.wowrackcustomerapp.data.injection.Injection
 import com.example.wowrackcustomerapp.data.repository.UserRepository
-import com.example.wowrackcustomerapp.ui.login.LoginViewModel
+import com.example.wowrackcustomerapp.ui.auth.login.LoginViewModel
+import com.example.wowrackcustomerapp.ui.auth.otp.OneTimePassViewModel
 import com.example.wowrackcustomerapp.ui.main.MainViewModel
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpViewModel
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileViewModel
@@ -26,6 +27,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(HelpViewModel::class.java) -> {
                 HelpViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(OneTimePassViewModel::class.java) -> {
+                OneTimePassViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
