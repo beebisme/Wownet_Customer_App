@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.adapter.ArticleAdapter
+import com.example.wowrackcustomerapp.adapter.HotspotAdapter
 import com.example.wowrackcustomerapp.data.models.Articles
 import com.example.wowrackcustomerapp.databinding.ActivityHomeBinding
+import com.example.wowrackcustomerapp.ui.main.section.article.NewsArticles
 import com.example.wowrackcustomerapp.ui.main.section.detail.DetailTraffic
+import com.example.wowrackcustomerapp.ui.main.section.hotspot.WownetHotspot
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -52,6 +55,14 @@ class HomeActivity : AppCompatActivity() {
 
             profilePhoto.setOnClickListener {
                 startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
+            }
+
+            seeAll.setOnClickListener {
+                startActivity(Intent(this@HomeActivity, NewsArticles::class.java))
+            }
+
+            clShape.setOnClickListener{
+                startActivity(Intent(this@HomeActivity, WownetHotspot::class.java))
             }
         }
 

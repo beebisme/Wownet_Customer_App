@@ -6,17 +6,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/_8sdp"
     app:cardUseCompatPadding="true"
-    android:layout_marginHorizontal="16dp"
     android:layout_gravity="center_horizontal"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_articles"
         android:layout_width="@dimen/_280sdp"
         android:layout_height="@dimen/_135sdp"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center"
         android:background="@drawable/articles_shape"
-        android:elevation="@dimen/_2sdp">
+        android:elevation="@dimen/_2sdp"
+        android:paddingStart="@dimen/_8sdp"
+        >
 
         <ImageView
             android:id="@+id/iv_cloudRaya"
@@ -36,28 +40,32 @@
 
         <TextView
             android:id="@+id/tv_cloudRaya"
-            android:layout_width="@dimen/_200sdp"
+            android:layout_width="@dimen/_150sdp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginStart="16dp"
             android:text="@string/first_name"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_cloudRaya"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.179" />
+            app:layout_constraintVertical_bias="0.232" />
 
         <TextView
             android:id="@+id/tv_desc"
-            android:layout_width="@dimen/_170sdp"
+            android:layout_width="@dimen/_150sdp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_2sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:text="@string/first_description"
             android:textColor="@color/grey"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.272"
             app:layout_constraintStart_toEndOf="@id/iv_cloudRaya"
             app:layout_constraintTop_toBottomOf="@id/tv_cloudRaya" /> <!-- Tambahkan margin di sini -->
 
