@@ -9,6 +9,12 @@ import com.example.wowrackcustomerapp.databinding.ItemContainerCommandMessageBin
 
 class CommandAdapter(private val listCommand: ArrayList<Commands>) :
     RecyclerView.Adapter<CommandAdapter.ListViewHolder>() {
+    private var commandClickListener: CommandClickListener? = null
+
+    fun setCommandClickListener(listener: CommandClickListener) {
+        this.commandClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = ItemContainerCommandMessageBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -25,6 +31,10 @@ class CommandAdapter(private val listCommand: ArrayList<Commands>) :
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val currentCmd = listCommand[position]
         holder.bind(currentCmd)
+
+        holder.itemView.setOnClickListener {
+            commandClickListener?.onCommandClick(currentCmd)
+        }
     }
 
     class ListViewHolder(private val binding: ItemContainerCommandMessageBinding) :
@@ -32,5 +42,9 @@ class CommandAdapter(private val listCommand: ArrayList<Commands>) :
         fun bind(cmd: Commands) {
             binding.textCommands.text = cmd.cmd
         }
+    }
+
+    interface CommandClickListener {
+        fun onCommandClick(command: Commands)
     }
 }

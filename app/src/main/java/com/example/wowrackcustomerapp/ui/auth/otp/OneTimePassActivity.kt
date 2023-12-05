@@ -9,8 +9,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.data.api.ApiConfig
+import com.example.wowrackcustomerapp.data.models.UserModel
 import com.example.wowrackcustomerapp.data.response.LoginOTPResponse
 import com.example.wowrackcustomerapp.databinding.ActivityOneTimePassBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
@@ -63,6 +65,17 @@ class OneTimePassActivity : AppCompatActivity() {
                                 "Success",
                                 Toast.LENGTH_LONG
                             ).show()
+                            viewModel.getSession().observe(this@OneTimePassActivity){
+                                viewModel.saveSession(
+                                    UserModel(
+                                        it.userId,
+                                        it.name,
+                                        it.email,
+                                        it.token,
+                                        true
+                                    )
+                                )
+                            }
                             val intent = Intent(this@OneTimePassActivity, HomeActivity::class.java)
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

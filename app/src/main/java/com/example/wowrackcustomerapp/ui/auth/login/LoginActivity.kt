@@ -34,16 +34,16 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getSession().observe(this) { user ->
-//            if (user.isLogin) {
-//                startActivity(Intent(this, HomeActivity::class.java))
-//                finish()
-//            } else {
+            if (user.isLogin) {
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            } else {
                 binding = ActivityLoginBinding.inflate(layoutInflater)
                 setContentView(binding.root)
 
                 setupView()
                 setupAction()
-//            }
+            }
         }
 
     }
@@ -84,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
                                 responseBody.data.name,
                                 responseBody.data.email,
                                 responseBody.data.token,
-                                true
+                                false
                             )
                         )
                         ViewModelFactory.clearInstance()
