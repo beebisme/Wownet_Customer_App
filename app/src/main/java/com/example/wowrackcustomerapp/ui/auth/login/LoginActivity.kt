@@ -100,6 +100,7 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }else{
+
                         binding.buttonLogin.isEnabled = true
                     }
                 }
