@@ -16,7 +16,6 @@ import androidx.appcompat.app.AlertDialog
 import com.example.wowrackcustomerapp.data.api.ApiConfig
 import com.example.wowrackcustomerapp.data.models.UserModel
 import com.example.wowrackcustomerapp.data.response.LoginApiResponse
-import com.example.wowrackcustomerapp.data.response.LoginResponse
 import com.example.wowrackcustomerapp.databinding.ActivityLoginBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.auth.otp.OneTimePassActivity
@@ -93,40 +92,13 @@ class LoginActivity : AppCompatActivity() {
                             "Success",
                             Toast.LENGTH_LONG
                         ).show()
-//                            Toast(this@LoginActivity).showCustomToast("Selamat Anda Berhasil Login",this@LoginActivity, ColorDrawable(getColor(R.color.primary)))
-//                            AlertDialog.Builder(this@LoginActivity).apply {
-//                                setTitle("Yeah!")
-//                                setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
-//                                setPositiveButton("Lanjut") { _, _ ->
                         val intent = Intent(this@LoginActivity, OneTimePassActivity::class.java)
-                        intent.putExtra("token",responseBody.data.token.toString())
-                        intent.putExtra("email",responseBody.data.email.toString())
+                        intent.putExtra("token", responseBody.data.token)
+                        intent.putExtra("email", responseBody.data.email)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
                         finish()
-//                                }
-//                                create()
-//                                show()
-//                            }
-                        //                    }else{
-//                        progressBar.visibility = View.GONE
-//                        binding.buttonLogin.isEnabled = true
-//                        Toast.makeText(this@LoginActivity,responseBody, Toast.LENGTH_LONG).show()
-////                        AlertDialog.Builder(this@LoginActivity).apply {
-////                            setTitle("Ooops!")
-////                            setMessage("Login failed")
-////                            setPositiveButton("Lanjut") { _, _ ->
-//                                val intent = Intent(this@LoginActivity, LoginActivity::class.java)
-//                                intent.flags =
-//                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-////                                startActivity(intent)
-////                                finish()
-////                            }
-////                            create()
-////                            show()
-////                        }
-//                    }
                     }else{
                         binding.buttonLogin.isEnabled = true
                     }
@@ -147,11 +119,5 @@ class LoginActivity : AppCompatActivity() {
 
             })
         }
-//        binding.buttonLogin.setOnClickListener {
-//            val intent = Intent(this@LoginActivity, OneTimePassActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//            startActivity(intent)
-//            finish()
-//        }
     }
 }
