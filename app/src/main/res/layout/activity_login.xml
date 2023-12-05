@@ -130,15 +130,15 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!--    <com.example.wowrackcustomerapp.customview.ButtonCustomView-->
-<!--        android:id="@+id/biometricLogin"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="@dimen/_12sdp"-->
-<!--        android:layout_marginBottom="@dimen/_40sdp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/passwordTextField" />-->
+    <!--        android:id="@+id/biometricLogin"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="@dimen/_12sdp"-->
+    <!--        android:layout_marginBottom="@dimen/_40sdp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/passwordTextField" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

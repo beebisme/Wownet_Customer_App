@@ -94,7 +94,7 @@ class HelpActivity : AppCompatActivity() {
                 val message = command.cmd
 //                sendMessage(senderId, Constant.RECEIVER_ID, message)
 //                sendMessage(Constant.RECEIVER_ID, senderId, message)
-                    sendMessage(senderId, Constant.RECEIVER_ID, message)
+                sendMessage(senderId, Constant.RECEIVER_ID, message)
                 val delayMillis = 2000L
                 Handler().postDelayed({
                     sendMessage(Constant.RECEIVER_ID, senderId, message)
