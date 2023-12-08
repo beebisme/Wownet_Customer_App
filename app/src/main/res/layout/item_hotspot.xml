@@ -36,8 +36,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="Wownet Hotspot"
-            android:textSize="26sp"
-            android:textStyle="bold"
+            android:textSize="@dimen/_16ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_hotspot"
             app:layout_constraintTop_toTopOf="parent" />
