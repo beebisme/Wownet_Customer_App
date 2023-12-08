@@ -82,6 +82,7 @@ class LoginActivity : AppCompatActivity() {
                                 responseBody.data.id.toString(),
                                 responseBody.data.name,
                                 responseBody.data.email,
+                                password,
                                 responseBody.data.token,
                                 false
                             )
@@ -95,12 +96,12 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this@LoginActivity, OneTimePassActivity::class.java)
                         intent.putExtra("token", responseBody.data.token)
                         intent.putExtra("email", responseBody.data.email)
+                        intent.putExtra("password", password)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
                         finish()
                     }else{
-
                         binding.buttonLogin.isEnabled = true
                     }
                 }
