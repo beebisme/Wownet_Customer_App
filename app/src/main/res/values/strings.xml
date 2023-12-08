@@ -52,7 +52,7 @@
     <string name="current_month">/ bulan ini</string>
     <string name="see_detail">Lihat Detail</string>
     <string name="articles">Articles</string>
-    <string name="first_name">Wowrack Luncurkan Transformasi Layana...</string>
+    <string name="first_name">Wowrack Luncurkan Transformasi Layananan Cloud Service </string>
     <string name="second_name">Singapore Huawei Clou…</string>
     <string name="third_name">Wowrack kenalkan Clo…</string>
     <string name="first_description">Hadir dengan logo baru, Cloud Raya version 2.0 memperkenalkan RAYA. Cloud Raya merupakan brand layanan…</string>
@@ -70,7 +70,7 @@
     <string name="traffic_address">Dharmanusada Indah VI no.100, Surabaya</string>
 
     <string-array name="data_name">
-        <item>Wowrack Luncurkan Transformasi Layana...</item>
+        <item>Wowrack Luncurkan Transformasi Layanan Cloud Service</item>
         <item>Singapore Huawei Clo…</item>
         <item>Wowrack kenalkan…</item>
     </string-array>
