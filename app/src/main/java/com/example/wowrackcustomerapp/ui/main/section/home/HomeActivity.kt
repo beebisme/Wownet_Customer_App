@@ -13,6 +13,7 @@ import com.example.wowrackcustomerapp.data.response.ArticleResponse
 import com.example.wowrackcustomerapp.databinding.ActivityHomeBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.main.section.article.NewsArticles
+import com.example.wowrackcustomerapp.ui.main.section.detail.DetailArticle
 import com.example.wowrackcustomerapp.ui.main.section.detail.DetailTraffic
 import com.example.wowrackcustomerapp.ui.main.section.hotspot.WownetHotspot
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpActivity
@@ -83,8 +84,6 @@ class HomeActivity : AppCompatActivity() {
             clShape.setOnClickListener {
                 startActivity(Intent(this@HomeActivity, WownetHotspot::class.java))
             }
-
-            recyclerViewArticles
 
         }
     }

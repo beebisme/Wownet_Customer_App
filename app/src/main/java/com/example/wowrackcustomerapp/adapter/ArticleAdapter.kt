@@ -28,6 +28,8 @@ class ArticleAdapter(private val listArticle: List<DataItem>) : RecyclerView.Ada
     class ListViewHolder(private val binding: ItemArticleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+
+
         fun bind(article: DataItem) {
             binding.apply {
                 Glide.with(itemView)
