@@ -1,6 +1,7 @@
 package com.example.wowrackcustomerapp.data.api
 
 import com.example.wowrackcustomerapp.data.response.ArticleResponse
+import com.example.wowrackcustomerapp.data.response.DataArticle
 import com.example.wowrackcustomerapp.data.response.DataItem
 import com.example.wowrackcustomerapp.data.response.LoginApiResponse
 import com.example.wowrackcustomerapp.data.response.LoginOTPResponse
@@ -32,5 +33,5 @@ interface ApiService {
     fun getArticles(): Call<ArticleResponse>
 
     @GET("articles/{id}")
-    suspend fun getArticleById(@Path("id") articleId: Int): Response<DataItem>
+    suspend fun getArticleById(@Path("id") articleId: Int): Response<DataArticle>
 }

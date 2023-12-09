@@ -1,5 +1,6 @@
 package com.example.wowrackcustomerapp.ui.main.section.article
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import com.example.wowrackcustomerapp.data.models.Articles
 import com.example.wowrackcustomerapp.data.response.ArticleResponse
 import com.example.wowrackcustomerapp.databinding.ActivityNewsArticlesBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
+import com.example.wowrackcustomerapp.ui.main.section.detail.DetailArticle
 import com.example.wowrackcustomerapp.ui.main.section.home.HomeViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -63,7 +65,9 @@ class NewsArticles : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val articles = response.body()?.data ?: emptyList()
-                    val articleAdapter = ArticleAdapter(articles)
+                    val articleAdapter = ArticleAdapter(articles) { articleId ->
+                        navigateToDetailActivity(articleId)
+                    }
                     Log.d("article", articles.toString())
                     Log.d("tokenapi", token)
                     recyclerView.adapter = articleAdapter
@@ -78,5 +82,10 @@ class NewsArticles : AppCompatActivity() {
                 Log.e("ApiError", "Failed to fetch articles. Error: ${t.message}")
             }
         })
+    }
+    private fun navigateToDetailActivity(articleId: Int) {
+        val intent = Intent(this, DetailArticle::class.java)
+        intent.putExtra(DetailArticle.EXTRA_DETAIL_ID, articleId)
+        startActivity(intent)
     }
 }

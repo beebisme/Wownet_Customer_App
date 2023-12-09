@@ -11,6 +11,7 @@ import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.data.api.ApiConfig
 import com.example.wowrackcustomerapp.data.models.Articles
 import com.example.wowrackcustomerapp.data.repository.ArticleRepository
+import com.example.wowrackcustomerapp.data.response.DataArticle
 import com.example.wowrackcustomerapp.data.response.DataItem
 import com.example.wowrackcustomerapp.databinding.ActivityDetailArticleBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
@@ -32,13 +33,13 @@ class DetailArticle : AppCompatActivity() {
 
         if (articleId != -1) {
             viewModel.getArticleById(articleId)
-            viewModel.article.observe(this, { article ->
+            viewModel.article.observe(this) { article ->
                 updateUI(article)
-            })
+            }
         }
     }
 
-    private fun updateUI(article: DataItem) {
+    private fun updateUI(article: DataArticle) {
         val tvDetailName: TextView = binding.tvTitle
         val tvDetailDescription: TextView = binding.tvDescription
         val ivDetailPhoto: ImageView = binding.ivArticle

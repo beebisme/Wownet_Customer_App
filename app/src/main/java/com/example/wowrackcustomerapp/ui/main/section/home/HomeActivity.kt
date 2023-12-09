@@ -102,7 +102,9 @@ class HomeActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val articles = response.body()?.data ?: emptyList()
-                    val articleAdapter = ArticleAdapter(articles)
+                    val articleAdapter = ArticleAdapter(articles) { articleId ->
+                        navigateToDetailActivity(articleId)
+                    }
                     Log.d("article", articles.toString())
                     Log.d("tokenapi", token)
                     recyclerView.adapter = articleAdapter
@@ -117,5 +119,10 @@ class HomeActivity : AppCompatActivity() {
                 Log.e("ApiError", "Failed to fetch articles. Error: ${t.message}")
             }
         })
+    }
+    private fun navigateToDetailActivity(articleId: Int) {
+        val intent = Intent(this, DetailArticle::class.java)
+        intent.putExtra(DetailArticle.EXTRA_DETAIL_ID, articleId)
+        startActivity(intent)
     }
 }

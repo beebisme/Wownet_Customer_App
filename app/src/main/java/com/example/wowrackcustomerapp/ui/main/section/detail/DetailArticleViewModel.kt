@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wowrackcustomerapp.data.repository.ArticleRepository
 import com.example.wowrackcustomerapp.data.repository.UserRepository
+import com.example.wowrackcustomerapp.data.response.DataArticle
 import com.example.wowrackcustomerapp.data.response.DataItem
 import kotlinx.coroutines.launch
 
 class DetailArticleViewModel(private val repository: UserRepository,private val articleRepository: ArticleRepository) : ViewModel() {
-    private val _article = MutableLiveData<DataItem>()
-    val article: LiveData<DataItem> get() = _article
+    private val _article = MutableLiveData<DataArticle>()
+    val article: LiveData<DataArticle> get() = _article
 
     fun getArticleById(articleId: Int) {
         viewModelScope.launch {

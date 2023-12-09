@@ -9,7 +9,7 @@ import com.example.wowrackcustomerapp.data.response.DataItem
 import com.example.wowrackcustomerapp.databinding.ItemArticleBinding
 
 
-class ArticleAdapter(private val listArticle: List<DataItem>) : RecyclerView.Adapter<ArticleAdapter.ListViewHolder>() {
+class ArticleAdapter(private val listArticle: List<DataItem>,private val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<ArticleAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding: ItemArticleBinding = ItemArticleBinding.inflate(
@@ -23,6 +23,10 @@ class ArticleAdapter(private val listArticle: List<DataItem>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val article = listArticle[position]
         holder.bind(article)
+
+        holder.itemView.setOnClickListener {
+            onItemClick(article.id) // Pass the article ID to the onItemClick function
+        }
     }
 
     class ListViewHolder(private val binding: ItemArticleBinding) :
