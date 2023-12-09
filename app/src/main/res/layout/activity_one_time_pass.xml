@@ -8,8 +8,6 @@
     android:padding="16dp"
     tools:context=".ui.auth.login.LoginActivity">
 
-
-
     <ProgressBar
         android:id="@+id/progressBarOTP"
         android:layout_width="@dimen/_30sdp"
@@ -27,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/wowrack_logo"
-        app:layout_constraintBottom_toTopOf="@+id/submitotptv"
+        android:layout_marginTop="@dimen/_48sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +37,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/type_your_otp"
         android:padding="@dimen/_4sdp"
-        app:layout_constraintBottom_toTopOf="@+id/button_submit"
+        android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/submitotptv">
@@ -60,11 +58,9 @@
         android:id="@+id/button_submit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
         app:buttonText="@string/submit"
-        app:layout_constraintBottom_toTopOf="@+id/clickmeTv"
+        android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/OTPTextField" />
 
@@ -73,27 +69,25 @@
         android:id="@+id/clickmeTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
         android:text="@string/resend_otp"
         android:textColor="@color/orange"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_timer"
+        android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_submit" />
 
     <TextView
         android:id="@+id/submitotptv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_100sdp"
         android:text="@string/check_your_email_for_otp"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/clickmeTv"
+        android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31" />
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
 
     <TextView
         android:id="@+id/tv_timer"

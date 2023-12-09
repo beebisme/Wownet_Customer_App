@@ -111,6 +111,8 @@ class OneTimePassActivity : AppCompatActivity() {
                                     responseBody.data.email,
                                     password,
                                     responseBody.data.token,
+                                    responseBody.data.phone,
+                                    responseBody.data.address,
                                     false
                                 )
                             )
@@ -180,6 +182,8 @@ class OneTimePassActivity : AppCompatActivity() {
                                             it.email,
                                             it.password,
                                             it.token,
+                                            it.phone,
+                                            it.address,
                                             true
                                         )
                                     )
@@ -190,6 +194,7 @@ class OneTimePassActivity : AppCompatActivity() {
                                     Intent(this@OneTimePassActivity, HomeActivity::class.java)
                                 intent.flags =
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                intent.putExtra("email",email)
                                 startActivity(intent)
                                 finish()
                             } else {

@@ -1,6 +1,7 @@
 package com.example.wowrackcustomerapp.ui.main.section.profile
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -20,4 +21,10 @@ class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
             repository.saveSession(user)
         }
     }
+    fun logout(){
+        viewModelScope.launch {
+            repository.logout()
+        }
+    }
+
 }

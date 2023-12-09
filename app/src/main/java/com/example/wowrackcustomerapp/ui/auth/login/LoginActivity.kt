@@ -98,6 +98,8 @@ class LoginActivity : AppCompatActivity() {
                                 responseBody.data.email,
                                 password,
                                 responseBody.data.token,
+                                responseBody.data.phone,
+                                responseBody.data.address,
                                 false
                             )
                         )

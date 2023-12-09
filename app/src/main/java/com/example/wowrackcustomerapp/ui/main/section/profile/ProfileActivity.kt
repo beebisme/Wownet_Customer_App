@@ -1,5 +1,6 @@
 package com.example.wowrackcustomerapp.ui.main.section.profile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import com.example.wowrackcustomerapp.data.models.ServicePackages
 import com.example.wowrackcustomerapp.data.models.UserModel
 import com.example.wowrackcustomerapp.databinding.ActivityProfileBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
+import com.example.wowrackcustomerapp.ui.auth.login.LoginActivity
 import com.example.wowrackcustomerapp.ui.main.section.home.HomeActivity
 
 class ProfileActivity : AppCompatActivity() {
@@ -33,6 +35,8 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val email = intent.getStringExtra("email")
 
         rvPackage = binding.rvPackage
         rvPackage.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -50,6 +54,12 @@ class ProfileActivity : AppCompatActivity() {
         viewModel.getSession().observe(this) {
             Log.d("biom", it.isBiometric.toString())
             switchBiometric.isChecked = it.isBiometric
+            binding.tvName.text = it.name
+            binding.tvEmail.text = email
+            binding.tvPhoneNumber.text = it.phone
+
+            Log.d("Test User Data", it.email)
+            Log.d("email", email.toString())
 
             switchBiometric.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (it.isBiometric != isChecked && isChecked){
@@ -60,6 +70,8 @@ class ProfileActivity : AppCompatActivity() {
                             it.email,
                             it.password,
                             it.token,
+                            it.phone,
+                            it.address,
                             it.isLogin,
                             true
                         )
@@ -75,12 +87,20 @@ class ProfileActivity : AppCompatActivity() {
                             it.email,
                             it.password,
                             it.token,
+                            it.phone,
+                            it.address,
                             it.isLogin,
                             false
                         )
                     )
                     switchBiometric.isChecked = isChecked
                 }
+            }
+            binding.buttonLogout.setOnClickListener{
+                viewModel.logout()
+                val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
 
@@ -133,6 +153,9 @@ class ProfileActivity : AppCompatActivity() {
         }
         return listInvoice
     }
+
+
+
     private fun showBiometricPrompt() {
         // Check if biometric is supported before showing the prompt
         if (isBiometricSupported()) {
