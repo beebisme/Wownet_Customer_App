@@ -4,6 +4,7 @@ import com.example.wowrackcustomerapp.data.response.ArticleResponse
 import com.example.wowrackcustomerapp.data.response.DataArticle
 import com.example.wowrackcustomerapp.data.response.DataItem
 import com.example.wowrackcustomerapp.data.response.DetailArticleResponse
+import com.example.wowrackcustomerapp.data.response.HotspotResponse
 import com.example.wowrackcustomerapp.data.response.LoginApiResponse
 import com.example.wowrackcustomerapp.data.response.LoginOTPResponse
 import com.example.wowrackcustomerapp.data.response.LoginResponse
@@ -35,4 +36,7 @@ interface ApiService {
 
     @GET("articles/{id}")
     fun getArticleById(@Path("id") articleId: Int): Call<DetailArticleResponse>
+
+    @GET("hotspots")
+    fun getHotspot(): Call<HotspotResponse>
 }

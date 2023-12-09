@@ -31,36 +31,11 @@ class DetailArticle : AppCompatActivity() {
         val articleId = intent.getIntExtra(EXTRA_DETAIL_ID, -1)
 
         if (articleId != -1) {
-//            viewModel.getArticleById(articleId)
-//            viewModel.article.observe(this) { article ->
-//                updateUI(article)
-//            }
             updateUI(articleId)
         }
     }
 
     private fun updateUI(articleId: Int) {
-//        article?.let {
-//            val tvDetailName: TextView = binding.tvTitle
-//            val tvDetailDescription: TextView = binding.tvDescription
-//            val ivDetailPhoto: ImageView = binding.ivArticle
-//
-//            tvDetailName.text = it.title
-//            tvDetailDescription.text = it.description
-//            Log.d("article",it.toString())
-//
-////            Log.d("arttitle", it.title)
-////            Log.d("artdesc", it.description)
-////            Log.d("artimg", it.imageUrl)
-//
-//            // Load image using Glide or your preferred image loading library
-//            Glide.with(this)
-//                .load(it.imageUrl)
-//                .into(ivDetailPhoto)
-//        } ?: run {
-//            // Handle the case when article is null
-//            Log.e("DetailArticle", "Article is null")
-//        }
         viewModel.getSession().observe(this@DetailArticle) { session ->
             if (session != null) {
                 val client = ApiConfig.getService(session.token).getArticleById(articleId)
@@ -77,11 +52,6 @@ class DetailArticle : AppCompatActivity() {
                             Glide.with(this@DetailArticle)
                                 .load(article.data.imageUrl)
                                 .into(ivDetailPhoto)
-//                            Log.d("article", article.toString())
-//
-//                            Log.d("arttitle", article.title)
-//                            Log.d("artdesc", article.description)
-//                            Log.d("artimg", article.imageUrl)
                         } else {
                             Log.e("ApiError", "Failed to fetch article details. Code: ${response.code()}")
                         }
