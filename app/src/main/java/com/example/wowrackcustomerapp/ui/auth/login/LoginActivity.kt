@@ -13,10 +13,12 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import com.example.wowrackcustomerapp.data.api.ApiConfig
 import com.example.wowrackcustomerapp.data.models.UserModel
 import com.example.wowrackcustomerapp.data.response.LoginApiResponse
-import com.example.wowrackcustomerapp.data.response.LoginResponse
 import com.example.wowrackcustomerapp.databinding.ActivityLoginBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.auth.otp.OneTimePassActivity
@@ -24,6 +26,7 @@ import com.example.wowrackcustomerapp.ui.main.section.home.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
@@ -33,17 +36,19 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         viewModel.getSession().observe(this) { user ->
-//            if (user.isLogin) {
-//                startActivity(Intent(this, HomeActivity::class.java))
-//                finish()
-//            } else {
-                binding = ActivityLoginBinding.inflate(layoutInflater)
-                setContentView(binding.root)
-
-                setupView()
-                setupAction()
-//            }
+            if (user.isLogin && !user.isBiometric) {
+                binding.biometricLoginButton.visibility = View.GONE
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            } else if (user.isLogin && user.isBiometric) {
+            binding = ActivityLoginBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+            binding.biometricLoginButton.visibility = View.VISIBLE
+            setupView()
+            setupAction()
+        }
         }
 
     }
@@ -83,8 +88,9 @@ class LoginActivity : AppCompatActivity() {
                                 responseBody.data.id.toString(),
                                 responseBody.data.name,
                                 responseBody.data.email,
+                                password,
                                 responseBody.data.token,
-                                true
+                                false
                             )
                         )
                         ViewModelFactory.clearInstance()
@@ -93,41 +99,15 @@ class LoginActivity : AppCompatActivity() {
                             "Success",
                             Toast.LENGTH_LONG
                         ).show()
-//                            Toast(this@LoginActivity).showCustomToast("Selamat Anda Berhasil Login",this@LoginActivity, ColorDrawable(getColor(R.color.primary)))
-//                            AlertDialog.Builder(this@LoginActivity).apply {
-//                                setTitle("Yeah!")
-//                                setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
-//                                setPositiveButton("Lanjut") { _, _ ->
                         val intent = Intent(this@LoginActivity, OneTimePassActivity::class.java)
-                        intent.putExtra("token",responseBody.data.token.toString())
-                        intent.putExtra("email",responseBody.data.email.toString())
+                        intent.putExtra("token", responseBody.data.token)
+                        intent.putExtra("email", responseBody.data.email)
+                        intent.putExtra("password", password)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
                         finish()
-//                                }
-//                                create()
-//                                show()
-//                            }
-                        //                    }else{
-//                        progressBar.visibility = View.GONE
-//                        binding.buttonLogin.isEnabled = true
-//                        Toast.makeText(this@LoginActivity,responseBody, Toast.LENGTH_LONG).show()
-////                        AlertDialog.Builder(this@LoginActivity).apply {
-////                            setTitle("Ooops!")
-////                            setMessage("Login failed")
-////                            setPositiveButton("Lanjut") { _, _ ->
-//                                val intent = Intent(this@LoginActivity, LoginActivity::class.java)
-//                                intent.flags =
-//                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-////                                startActivity(intent)
-////                                finish()
-////                            }
-////                            create()
-////                            show()
-////                        }
-//                    }
-                    }else{
+                    } else {
                         binding.buttonLogin.isEnabled = true
                     }
                 }
@@ -147,11 +127,69 @@ class LoginActivity : AppCompatActivity() {
 
             })
         }
-//        binding.buttonLogin.setOnClickListener {
-//            val intent = Intent(this@LoginActivity, OneTimePassActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//            startActivity(intent)
-//            finish()
-//        }
+        binding.biometricLoginButton.setOnClickListener {
+            showBiometricPrompt()
+        }
+    }
+
+    private fun showBiometricPrompt() {
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Biometric Authentication")
+            .setSubtitle("Log in using your biometric credential")
+            .setNegativeButtonText("Cancel")
+            .build()
+
+        val biometricPrompt =
+            BiometricPrompt(this, ContextCompat.getMainExecutor(this),
+                object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                        super.onAuthenticationError(errorCode, errString)
+                        // Handle authentication error
+                        showMessage("Authentication error: $errString")
+                    }
+
+                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                        super.onAuthenticationSucceeded(result)
+                        // Handle authentication success
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
+                        showMessage("Authentication succeeded!")
+                    }
+
+                    override fun onAuthenticationFailed() {
+                        super.onAuthenticationFailed()
+                        // Handle authentication failure
+                        showMessage("Authentication failed.")
+                    }
+                })
+
+        biometricPrompt.authenticate(promptInfo)
+    }
+
+    private fun isBiometricSupported(): Boolean {
+        val biometricManager = BiometricManager.from(this)
+        when (biometricManager.canAuthenticate()) {
+            BiometricManager.BIOMETRIC_SUCCESS -> {
+                // The user can authenticate with biometrics, continue with the authentication process
+                return true
+            }
+
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE, BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+                // Handle the error cases as needed in your app
+                return false
+            }
+
+            else -> {
+                // Biometric status unknown or another error occurred
+                return false
+            }
+        }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

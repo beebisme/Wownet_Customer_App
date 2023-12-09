@@ -11,7 +11,7 @@
 
 
     <ProgressBar
-        android:id="@+id/progressBarLogin"
+        android:id="@+id/progressBarOTP"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_margin="@dimen/_4sdp"
@@ -21,11 +21,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logoImageView" />
 
+
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_60sdp"
         android:contentDescription="@string/wowrack_logo"
         app:layout_constraintBottom_toTopOf="@+id/submitotptv"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,6 @@
         android:id="@+id/OTPTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
         android:hint="@string/type_your_otp"
         android:padding="@dimen/_4sdp"
         app:layout_constraintBottom_toTopOf="@+id/button_submit"
@@ -57,7 +56,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
     <com.example.wowrackcustomerapp.customview.ButtonCustomView
         android:id="@+id/button_submit"
         android:layout_width="0dp"
@@ -71,16 +69,15 @@
         app:layout_constraintTop_toBottomOf="@+id/OTPTextField" />
 
 
-
     <TextView
         android:id="@+id/clickmeTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:text="@string/resend_otp"
         android:textColor="@color/orange"
         android:textStyle="bold"
-        android:layout_marginBottom="@dimen/_50sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_timer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -95,7 +92,17 @@
         app:layout_constraintBottom_toTopOf="@+id/clickmeTv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.31" />
+
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/timer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
