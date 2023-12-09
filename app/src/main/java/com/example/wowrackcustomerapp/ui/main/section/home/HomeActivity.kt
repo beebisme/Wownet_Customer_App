@@ -54,14 +54,6 @@ class HomeActivity : AppCompatActivity() {
             getArticles(it.token)
         }
 
-        // Get list of articles
-//        val articleList = getArticles()
-//
-//        // Set up RecyclerView with the list of articles
-//        val articleAdapter = ArticleAdapter(articleList)
-//        recyclerView.adapter = articleAdapter
-
-
         binding.apply {
             clTrafficUsage.setOnClickListener {
                 // Memulai DetailTrafficActivity

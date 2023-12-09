@@ -48,18 +48,6 @@ class NewsArticles : AppCompatActivity() {
         }
     }
 
-    private fun getListHeroes(): List<Articles> {
-        val dataName = resources.getStringArray(R.array.data_name)
-        val dataDescription = resources.getStringArray(R.array.data_description)
-        val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
-        val listArticle = ArrayList<Articles>()
-        for (i in dataName.indices) {
-            val article = Articles(dataName[i], dataDescription[i], dataPhoto.getResourceId(i, -1))
-            listArticle.add(article)
-        }
-        dataPhoto.recycle() // Recycle the TypedArray to avoid memory leaks
-        return listArticle
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
