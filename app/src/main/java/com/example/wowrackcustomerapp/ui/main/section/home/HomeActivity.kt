@@ -3,51 +3,63 @@ package com.example.wowrackcustomerapp.ui.main.section.home
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wowrackcustomerapp.R
 import com.example.wowrackcustomerapp.adapter.ArticleAdapter
-import com.example.wowrackcustomerapp.adapter.HotspotAdapter
-import com.example.wowrackcustomerapp.data.models.Articles
+import com.example.wowrackcustomerapp.data.api.ApiConfig
+import com.example.wowrackcustomerapp.data.response.ArticleResponse
 import com.example.wowrackcustomerapp.databinding.ActivityHomeBinding
-import com.example.wowrackcustomerapp.databinding.ItemArticleBinding
+import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.main.section.article.NewsArticles
-import com.example.wowrackcustomerapp.ui.main.section.detail.DetailArticle
 import com.example.wowrackcustomerapp.ui.main.section.detail.DetailTraffic
 import com.example.wowrackcustomerapp.ui.main.section.hotspot.WownetHotspot
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpActivity
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var floatingActionButton: FloatingActionButton
-
+    private val viewModel by viewModels<HomeViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
+    private var token: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         recyclerView = binding.recyclerViewArticles
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         floatingActionButton = binding.floatingActionButton
         floatingActionButton.setOnClickListener {
-            val intent = Intent(this,HelpActivity::class.java)
-            intent.putExtra("senderId","1")
-            Log.d("userIdHome","1")
+            val intent = Intent(this, HelpActivity::class.java)
+            intent.putExtra("senderId", "1")
+            Log.d("userIdHome", "1")
             startActivity(intent)
+        }
+        viewModel.getSession().observe(this) {
+            token = it.token
+            Log.d("tokenhome", token)
+            getArticles(it.token)
         }
 
         // Get list of articles
-        val articleList = getListHeroes()
+//        val articleList = getArticles()
+//
+//        // Set up RecyclerView with the list of articles
+//        val articleAdapter = ArticleAdapter(articleList)
+//        recyclerView.adapter = articleAdapter
 
-        // Set up RecyclerView with the list of articles
-        val articleAdapter = ArticleAdapter(articleList)
-        recyclerView.adapter = articleAdapter
 
         binding.apply {
             clTrafficUsage.setOnClickListener {
@@ -68,7 +80,7 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(Intent(this@HomeActivity, NewsArticles::class.java))
             }
 
-            clShape.setOnClickListener{
+            clShape.setOnClickListener {
                 startActivity(Intent(this@HomeActivity, WownetHotspot::class.java))
             }
 
@@ -77,16 +89,42 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun getListHeroes(): List<Articles> {
-        val dataName = resources.getStringArray(R.array.data_name)
-        val dataDescription = resources.getStringArray(R.array.data_description)
-        val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
-        val listArticle = ArrayList<Articles>()
-        for (i in dataName.indices) {
-            val article = Articles(dataName[i], dataDescription[i], dataPhoto.getResourceId(i, -1))
-            listArticle.add(article)
-        }
-        dataPhoto.recycle() // Recycle the TypedArray to avoid memory leaks
-        return listArticle
+    //    private fun getListArticles(): List<Articles> {
+//        val dataName = resources.getStringArray(R.array.data_name)
+//        val dataDescription = resources.getStringArray(R.array.data_description)
+//        val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
+//        val listArticle = ArrayList<Articles>()
+//        for (i in dataName.indices) {
+//            val article = Articles(dataName[i], dataDescription[i], dataPhoto.getResourceId(i, -1))
+//            listArticle.add(article)
+//        }
+//        dataPhoto.recycle() // Recycle the TypedArray to avoid memory leaks
+//        return listArticle
+////        val client = ApiConfig.getService()
+//    }
+    private fun getArticles(token: String) {
+        val apiService = ApiConfig.getService(token)
+        apiService.getArticles().enqueue(object : Callback<ArticleResponse> {
+            override fun onResponse(
+                call: Call<ArticleResponse>,
+                response: Response<ArticleResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val articles = response.body()?.data ?: emptyList()
+                    val articleAdapter = ArticleAdapter(articles)
+                    Log.d("article", articles.toString())
+                    Log.d("tokenapi", token)
+                    recyclerView.adapter = articleAdapter
+                } else {
+                    // Handle error
+                    Log.e("ApiError", "Failed to fetch articles. Code: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
+                // Handle failure
+                Log.e("ApiError", "Failed to fetch articles. Error: ${t.message}")
+            }
+        })
     }
 }

@@ -3,11 +3,13 @@ package com.example.wowrackcustomerapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.wowrackcustomerapp.data.models.Articles
+import com.example.wowrackcustomerapp.data.response.DataItem
 import com.example.wowrackcustomerapp.databinding.ItemArticleBinding
 
 
-class ArticleAdapter(private val listArticle: List<Articles>) : RecyclerView.Adapter<ArticleAdapter.ListViewHolder>() {
+class ArticleAdapter(private val listArticle: List<DataItem>) : RecyclerView.Adapter<ArticleAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding: ItemArticleBinding = ItemArticleBinding.inflate(
@@ -26,10 +28,12 @@ class ArticleAdapter(private val listArticle: List<Articles>) : RecyclerView.Ada
     class ListViewHolder(private val binding: ItemArticleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(article: Articles) {
+        fun bind(article: DataItem) {
             binding.apply {
-                ivCloudRaya.setImageResource(article.photo)
-                tvCloudRaya.text = article.name
+                Glide.with(itemView)
+                    .load(article.imageUrl)
+                    .into(ivCloudRaya)
+                tvCloudRaya.text = article.title
                 tvDesc.text = article.description
 
                 // Anda dapat menambahkan listener klik di sini

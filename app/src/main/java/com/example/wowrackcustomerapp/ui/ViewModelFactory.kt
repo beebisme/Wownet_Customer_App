@@ -7,7 +7,8 @@ import com.example.wowrackcustomerapp.data.injection.Injection
 import com.example.wowrackcustomerapp.data.repository.UserRepository
 import com.example.wowrackcustomerapp.ui.auth.login.LoginViewModel
 import com.example.wowrackcustomerapp.ui.auth.otp.OneTimePassViewModel
-import com.example.wowrackcustomerapp.ui.main.MainViewModel
+import com.example.wowrackcustomerapp.ui.main.section.article.NewsViewModel
+import com.example.wowrackcustomerapp.ui.main.section.home.HomeViewModel
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpViewModel
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileViewModel
 
@@ -16,8 +17,8 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
-                MainViewModel(repository) as T
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                HomeViewModel(repository) as T
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
@@ -30,6 +31,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(OneTimePassViewModel::class.java) -> {
                 OneTimePassViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(NewsViewModel::class.java) -> {
+                NewsViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

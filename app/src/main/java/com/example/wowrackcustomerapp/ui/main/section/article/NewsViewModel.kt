@@ -1,4 +1,4 @@
-package com.example.wowrackcustomerapp.ui.main
+package com.example.wowrackcustomerapp.ui.main.section.article
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import com.example.wowrackcustomerapp.data.models.UserModel
 import com.example.wowrackcustomerapp.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: UserRepository): ViewModel() {
+class NewsViewModel(private val repository: UserRepository): ViewModel() {
 
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
