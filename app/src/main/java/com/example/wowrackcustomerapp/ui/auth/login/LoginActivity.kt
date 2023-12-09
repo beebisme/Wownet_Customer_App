@@ -42,13 +42,21 @@ class LoginActivity : AppCompatActivity() {
                 binding.biometricLoginButton.visibility = View.GONE
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
-            } else if (user.isLogin && user.isBiometric) {
-            binding = ActivityLoginBinding.inflate(layoutInflater)
-            setContentView(binding.root)
-            binding.biometricLoginButton.visibility = View.VISIBLE
-            setupView()
-            setupAction()
-        }
+            }
+            if (user.isLogin && user.isBiometric) {
+                binding = ActivityLoginBinding.inflate(layoutInflater)
+                setContentView(binding.root)
+                binding.biometricLoginButton.visibility = View.VISIBLE
+                setupView()
+                setupAction()
+            } else {
+                binding = ActivityLoginBinding.inflate(layoutInflater)
+                setContentView(binding.root)
+                binding.biometricLoginButton.visibility = View.GONE
+                setupView()
+                setupAction()
+
+            }
         }
 
     }

@@ -51,14 +51,9 @@ class ProfileActivity : AppCompatActivity() {
         viewModel.getSession().observe(this) {
             Log.d("biom", it.isBiometric.toString())
             switchBiometric.isChecked = it.isBiometric
-        }
 
-
-        switchBiometric.setOnCheckedChangeListener { _, isChecked ->
-//            if (isChecked) {
-                // Switch is ON, show biometric authentication
-                showBiometricPrompt()
-                viewModel.getSession().observe(this@ProfileActivity){
+            switchBiometric.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (it.isBiometric != isChecked && isChecked){
                     viewModel.saveSession(
                         UserModel(
                             it.userId,
@@ -67,15 +62,52 @@ class ProfileActivity : AppCompatActivity() {
                             it.password,
                             it.token,
                             it.isLogin,
-                            isBiometricPromptShown
+                            true
                         )
                     )
+                    Log.d("bio",it.isBiometric.toString())
+                    switchBiometric.isChecked = isChecked
+
+                }else{
+                    viewModel.saveSession(
+                        UserModel(
+                            it.userId,
+                            it.name,
+                            it.email,
+                            it.password,
+                            it.token,
+                            it.isLogin,
+                            false
+                        )
+                    )
+                    switchBiometric.isChecked = isChecked
                 }
-//            } else {
-//                // Switch is OFF, set isBiometricPromptShown to false
-//                isBiometricPromptShown = false
-//            }
+            }
         }
+
+
+//        switchBiometric.setOnCheckedChangeListener { _, isChecked ->
+////            if (isChecked) {
+//                // Switch is ON, show biometric authentication
+//                showBiometricPrompt()
+//                viewModel.getSession().observe(this@ProfileActivity){
+//                    viewModel.saveSession(
+//                        UserModel(
+//                            it.userId,
+//                            it.name,
+//                            it.email,
+//                            it.password,
+//                            it.token,
+//                            it.isLogin,
+//                            isBiometricPromptShown
+//                        )
+//                    )
+//                }
+////            } else {
+////                // Switch is OFF, set isBiometricPromptShown to false
+////                isBiometricPromptShown = false
+////            }
+//        }
 
     }
 
