@@ -11,7 +11,9 @@ import com.example.wowrackcustomerapp.adapter.ArticleAdapter
 import com.example.wowrackcustomerapp.adapter.HotspotAdapter
 import com.example.wowrackcustomerapp.data.models.Articles
 import com.example.wowrackcustomerapp.databinding.ActivityHomeBinding
+import com.example.wowrackcustomerapp.databinding.ItemArticleBinding
 import com.example.wowrackcustomerapp.ui.main.section.article.NewsArticles
+import com.example.wowrackcustomerapp.ui.main.section.detail.DetailArticle
 import com.example.wowrackcustomerapp.ui.main.section.detail.DetailTraffic
 import com.example.wowrackcustomerapp.ui.main.section.hotspot.WownetHotspot
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpActivity
@@ -69,8 +71,10 @@ class HomeActivity : AppCompatActivity() {
             clShape.setOnClickListener{
                 startActivity(Intent(this@HomeActivity, WownetHotspot::class.java))
             }
-        }
 
+            recyclerViewArticles
+
+        }
     }
 
     private fun getListHeroes(): List<Articles> {
