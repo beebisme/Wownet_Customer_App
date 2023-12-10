@@ -36,7 +36,7 @@ class ProductsActivity : AppCompatActivity() {
     }
 
     private fun getProducts(token: String) {
-        listProduct = ArrayList<ServiceItem>()
+        listProduct = ArrayList()
         val apiService = ApiConfig.getService(token)
         apiService.getServices().enqueue(object : Callback<ServicesResponse> {
             override fun onResponse(
@@ -44,23 +44,20 @@ class ProductsActivity : AppCompatActivity() {
                 response: Response<ServicesResponse>
             ) {
                 if (response.isSuccessful) {
-                    val product = response.body()?.data
-                    val productAdapter = product?.let {
-                    for (prod in product){
-                        listProduct.add(prod)
-                    }
-                        ProductsAdapter(listProduct)
-                    }
-
+                    val products = response.body()?.data ?: emptyList()
+                    //                        for (i in products){
+//                            listProduct.add(i)
+//                        }
+//                        listProduct.addAll(products)
+                    Log.d("products", products.toString())
+                    val productAdapter = ProductsAdapter(products)
                     recyclerView.adapter = productAdapter
-
                 }
             }
 
             override fun onFailure(call: Call<ServicesResponse>, t: Throwable) {
                 Log.d("Service Data", "data : gagal")
             }
-
         })
     }
 }

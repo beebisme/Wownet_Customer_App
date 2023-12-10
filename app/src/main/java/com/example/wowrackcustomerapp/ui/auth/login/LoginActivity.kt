@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import com.example.wowrackcustomerapp.data.api.ApiConfig
 import com.example.wowrackcustomerapp.data.models.UserModel
 import com.example.wowrackcustomerapp.data.response.LoginApiResponse
@@ -76,6 +77,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupAction() {
         val progressBar = binding.progressBarLogin
+        binding.buttonLogin.isEnabled = false
+        binding.emailEditText.addTextChangedListener {
+            checkLoginButtonStatus()
+        }
+
+        binding.passwordEditText.addTextChangedListener {
+            checkLoginButtonStatus()
+        }
         binding.buttonLogin.setOnClickListener {
             binding.buttonLogin.isEnabled = false
             progressBar.visibility = View.VISIBLE
@@ -119,6 +128,13 @@ class LoginActivity : AppCompatActivity() {
                         finish()
                     } else {
                         binding.buttonLogin.isEnabled = true
+                        runOnUiThread {
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "Incorrect email or password",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
                 }
 
@@ -197,6 +213,16 @@ class LoginActivity : AppCompatActivity() {
                 return false
             }
         }
+    }
+
+    private fun checkLoginButtonStatus() {
+        val email = binding.emailEditText.text.toString().trim()
+        val password = binding.passwordEditText.text.toString().trim()
+
+        val isEmailValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        val isPasswordValid = password.isNotEmpty() && password.length >= 8 // Add your password validation logic here
+
+        binding.buttonLogin.isEnabled = isEmailValid && isPasswordValid
     }
 
     private fun showMessage(message: String) {

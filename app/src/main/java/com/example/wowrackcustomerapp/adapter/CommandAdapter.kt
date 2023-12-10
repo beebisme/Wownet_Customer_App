@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wowrackcustomerapp.data.models.Commands
 import com.example.wowrackcustomerapp.databinding.ItemContainerCommandMessageBinding
 
-class CommandAdapter(private val listCommand: ArrayList<Commands>) :
+class CommandAdapter(private val listCommand: MutableList<Commands>) :
     RecyclerView.Adapter<CommandAdapter.ListViewHolder>() {
     private var commandClickListener: CommandClickListener? = null
 

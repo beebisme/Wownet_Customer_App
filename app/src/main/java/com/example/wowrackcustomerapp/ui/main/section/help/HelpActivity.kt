@@ -29,7 +29,7 @@ class HelpActivity : AppCompatActivity() {
 
     //    private lateinit var chatMessage: List<ChatMessage>
     private lateinit var chatMessage: MutableList<ChatMessage>
-    private val listCmd = ArrayList<Commands>()
+    private lateinit var listCmd : MutableList<Commands>
     private lateinit var database: FirebaseDatabase
     private val viewModel by viewModels<HelpViewModel> {
         ViewModelFactory.getInstance(this)
@@ -86,7 +86,8 @@ class HelpActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val listCommandAdapter = CommandAdapter(listCmd)
         binding.commandRecyclerView.adapter = listCommandAdapter
-        listCmd.addAll(getCmd())
+//        getCommandsFromDB()
+//        listCmd.addAll(get)
         listCommandAdapter.setCommandClickListener(object : CommandAdapter.CommandClickListener {
             @Suppress("DEPRECATION")
             override fun onCommandClick(command: Commands) {
@@ -109,7 +110,7 @@ class HelpActivity : AppCompatActivity() {
         val cmd = resources.getStringArray(R.array.data_command)
         val listCmd = ArrayList<Commands>()
         for (i in cmd.indices) {
-            val commands = Commands(cmd[i])
+            val commands = Commands(cmd[i],cmd[i])
             listCmd.add(commands)
         }
         return listCmd
@@ -136,7 +137,6 @@ class HelpActivity : AppCompatActivity() {
             )
         )
 
-//        reference.setValue(hashMap)
         reference.child("Chat").push().setValue(hashMap)
         Log.d("send", "berhasil")
         chatMessage.add(chat)
@@ -180,4 +180,32 @@ class HelpActivity : AppCompatActivity() {
             }
         })
     }
+
+//    private fun getCommandsFromDB(){
+//        val databaseReference: DatabaseReference =
+//            FirebaseDatabase.getInstance(" https://wowrackcustomerapp-default-rtdb.asia-southeast1.firebasedatabase.app")
+//                .getReference("Command")
+//        var listCmd = ArrayList<Commands>()
+//        databaseReference.ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                for (dataSnapShot: DataSnapshot in snapshot.children){
+//                    val commandsData = dataSnapShot.value as HashMap<*, *>
+//                    val cmd = Commands(
+//                        cmd = commandsData["command"].toString(),
+//                        response = commandsData["command"].toString()
+//                    )
+//                    listCmd.add(cmd)
+//                    Log.d("cmd",cmd.toString())
+//                    Log.d("listcmd",listCmd.toString())
+//                    Log.d("cmddata",commandsData.toString())
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.w("HelpDb", "Failed to read value.", error.toException())
+//            }
+//
+//
+//        }
+//    }
 }
