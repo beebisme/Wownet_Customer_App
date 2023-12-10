@@ -50,6 +50,12 @@ class NewsArticles : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getSession().observe(this) {
+            getArticles(it.token)
+        }
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

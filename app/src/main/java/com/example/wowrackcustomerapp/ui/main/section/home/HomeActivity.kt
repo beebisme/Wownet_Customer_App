@@ -80,6 +80,15 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getSession().observe(this) {
+            token = it.token
+            Log.d("tokenhome", token)
+            getArticles(it.token)
+        }
+    }
+
     //    private fun getListArticles(): List<Articles> {
 //        val dataName = resources.getStringArray(R.array.data_name)
 //        val dataDescription = resources.getStringArray(R.array.data_description)
