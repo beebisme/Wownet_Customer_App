@@ -42,7 +42,9 @@
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_28sdp"
         android:text="Hotspot"
-        android:textSize="20sp"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />

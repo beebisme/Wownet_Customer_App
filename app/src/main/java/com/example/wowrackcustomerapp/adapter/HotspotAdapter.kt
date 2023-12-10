@@ -29,7 +29,12 @@ class HotspotAdapter :
         fun bind(hotspot: DataHotspot) {
             binding.apply {
                 tvHotspotName.text = hotspot.name
-
+                val distanceText = if (hotspot.distance < 1000) {
+                    String.format("%.0f meters", hotspot.distance)
+                } else {
+                    String.format("%.2f km", hotspot.distance / 1000)
+                }
+                tvHotspotDistance.text = distanceText
                 // You can add a click listener here
                 root.setOnClickListener {
                     // Handle the click here

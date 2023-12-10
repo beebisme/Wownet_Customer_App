@@ -30,12 +30,21 @@ data class DataHotspot(
 	val lang: Float,
 
 	@field:SerializedName("long")
-	val long: Float
+	val long: Float,
+
+	var distance: Double = 0.0
 ) {
 	fun getLocation(): Location {
 		val location = Location("HotspotLocation")
 		location.latitude = lang.toDouble()
 		location.longitude = long.toDouble()
 		return location
+	}
+	fun updateDistance(userLocation: Location) {
+		val hotspotLocation = getLocation()
+		distance = calculateDistance(userLocation, hotspotLocation).toDouble()
+	}
+	fun calculateDistance(userLocation: Location, hotspotLocation: Location): Float {
+		return userLocation.distanceTo(hotspotLocation)
 	}
 }
