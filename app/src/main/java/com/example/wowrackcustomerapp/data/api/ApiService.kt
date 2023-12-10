@@ -7,6 +7,7 @@ import com.example.wowrackcustomerapp.data.response.DetailArticleResponse
 import com.example.wowrackcustomerapp.data.response.HotspotResponse
 import com.example.wowrackcustomerapp.data.response.LoginApiResponse
 import com.example.wowrackcustomerapp.data.response.LoginOTPResponse
+import com.example.wowrackcustomerapp.data.response.ServicesResponse
 import com.example.wowrackcustomerapp.data.response.LoginResponse
 import retrofit2.Call
 import retrofit2.Response
@@ -39,4 +40,7 @@ interface ApiService {
 
     @GET("hotspots")
     fun getHotspot(): Call<HotspotResponse>
+
+    @GET("services")
+    fun getServices(): Call<ServicesResponse>
 }

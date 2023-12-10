@@ -36,8 +36,6 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val email = intent.getStringExtra("email")
-
         rvPackage = binding.rvPackage
         rvPackage.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
@@ -55,11 +53,8 @@ class ProfileActivity : AppCompatActivity() {
             Log.d("biom", it.isBiometric.toString())
             switchBiometric.isChecked = it.isBiometric
             binding.tvName.text = it.name
-            binding.tvEmail.text = email
+            binding.tvEmail.text = it.email
             binding.tvPhoneNumber.text = it.phone
-
-            Log.d("Test User Data", it.email)
-            Log.d("email", email.toString())
 
             switchBiometric.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (it.isBiometric != isChecked && isChecked){

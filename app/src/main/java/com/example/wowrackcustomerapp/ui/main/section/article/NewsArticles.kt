@@ -20,7 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsArticles : AppCompatActivity() {
+class   NewsArticles : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewsArticlesBinding
     private lateinit var recyclerView: RecyclerView

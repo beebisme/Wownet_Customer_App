@@ -17,6 +17,7 @@ import com.example.wowrackcustomerapp.ui.main.section.detail.DetailArticle
 import com.example.wowrackcustomerapp.ui.main.section.detail.DetailTraffic
 import com.example.wowrackcustomerapp.ui.main.section.hotspot.WownetHotspot
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpActivity
+import com.example.wowrackcustomerapp.ui.main.section.products.ProductsActivity
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
@@ -75,6 +76,10 @@ class HomeActivity : AppCompatActivity() {
 
             clShape.setOnClickListener {
                 startActivity(Intent(this@HomeActivity, WownetHotspot::class.java))
+            }
+
+            clShape2.setOnClickListener{
+                startActivity(Intent(this@HomeActivity, ProductsActivity::class.java))
             }
 
         }

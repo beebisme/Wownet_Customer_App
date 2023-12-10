@@ -12,6 +12,7 @@ import com.example.wowrackcustomerapp.ui.main.section.detail.DetailArticleViewMo
 import com.example.wowrackcustomerapp.ui.main.section.home.HomeViewModel
 import com.example.wowrackcustomerapp.ui.main.section.help.HelpViewModel
 import com.example.wowrackcustomerapp.ui.main.section.hotspot.HotspotViewModel
+import com.example.wowrackcustomerapp.ui.main.section.products.ProductsViewModel
 import com.example.wowrackcustomerapp.ui.main.section.profile.ProfileViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -42,6 +43,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(HotspotViewModel::class.java) -> {
                 HotspotViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ProductsViewModel::class.java) -> {
+                ProductsViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
