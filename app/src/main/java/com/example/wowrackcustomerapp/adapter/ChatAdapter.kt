@@ -258,6 +258,7 @@ class ChatAdapter(private val chatMessage: MutableList<ChatMessage>, private val
         RecyclerView.ViewHolder(binding.root) {
         fun setData(chatMessage: ChatMessage) {
             binding.textMessage.text = chatMessage.message
+            binding.dateMessage.text = chatMessage.dateObject.toString()
         }
     }
 
@@ -265,6 +266,7 @@ class ChatAdapter(private val chatMessage: MutableList<ChatMessage>, private val
         RecyclerView.ViewHolder(binding.root) {
         fun setData(chatMessage: ChatMessage) {
             binding.textReceivedMessage.text = chatMessage.message
+            binding.dateMessage.text = chatMessage.dateObject.toString()
         }
     }
 

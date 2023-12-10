@@ -29,7 +29,7 @@ class HelpActivity : AppCompatActivity() {
 
     //    private lateinit var chatMessage: List<ChatMessage>
     private lateinit var chatMessage: MutableList<ChatMessage>
-    private lateinit var listCmd : MutableList<Commands>
+    private lateinit var listCmd: MutableList<Commands>
     private lateinit var database: FirebaseDatabase
     private val viewModel by viewModels<HelpViewModel> {
         ViewModelFactory.getInstance(this)
@@ -41,10 +41,11 @@ class HelpActivity : AppCompatActivity() {
         binding = ActivityHelpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         senderId = intent.getStringExtra("senderId").toString()
-        Log.d("senderOncreate",senderId)
+        Log.d("senderOncreate", senderId)
         setupView()
         setListeners()
         readMessage(senderId, Constant.RECEIVER_ID)
+        getCommandsFromDB()
 
     }
 
@@ -72,7 +73,7 @@ class HelpActivity : AppCompatActivity() {
     private fun setupView() {
         viewModel.getSession().observe(this) { user ->
             senderId = user.userId
-            Log.d("senderGetSession",senderId)
+            Log.d("senderGetSession", senderId)
         }
         Log.d("sender", senderId)
         // Initialize chatMessage with your data
@@ -81,6 +82,7 @@ class HelpActivity : AppCompatActivity() {
 //            ChatMessage(2, "CustomerService", senderId, "test123!")
             // Add more messages as needed
         )
+        listCmd = mutableListOf()
 
         binding.commandRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -106,15 +108,15 @@ class HelpActivity : AppCompatActivity() {
             FirebaseDatabase.getInstance("https://wowrackcustomerapp-default-rtdb.asia-southeast1.firebasedatabase.app")
     }
 
-    private fun getCmd(): ArrayList<Commands> {
-        val cmd = resources.getStringArray(R.array.data_command)
-        val listCmd = ArrayList<Commands>()
-        for (i in cmd.indices) {
-            val commands = Commands(cmd[i],cmd[i])
-            listCmd.add(commands)
-        }
-        return listCmd
-    }
+//    private fun getCmd(): ArrayList<Commands> {
+//        val cmd = resources.getStringArray(R.array.data_command)
+//        val listCmd = ArrayList<Commands>()
+//        for (i in cmd.indices) {
+//            val commands = Commands(cmd[i], cmd[i])
+//            listCmd.add(commands)
+//        }
+//        return listCmd
+//    }
 
     private fun sendMessage(senderId: String, receiverId: String, message: String) {
         val reference = database.reference
@@ -143,6 +145,7 @@ class HelpActivity : AppCompatActivity() {
         Log.d("chatList", chatMessage.toString())
 
     }
+
     private fun readMessage(senderId: String, receiverId: String) {
         val databaseReference: DatabaseReference =
             FirebaseDatabase.getInstance(" https://wowrackcustomerapp-default-rtdb.asia-southeast1.firebasedatabase.app")
@@ -168,7 +171,7 @@ class HelpActivity : AppCompatActivity() {
                     Log.d("ceksender", ceksender.toString())
                     Log.d("senderid", chat.senderId.toString())
                     Log.d("sender", senderId)
-                    if (chat.senderId == senderId && chat.receiverId.equals(receiverId)||
+                    if (chat.senderId == senderId && chat.receiverId.equals(receiverId) ||
                         chat.receiverId == senderId && chat.receiverId.equals(senderId)
                     ) {
                         chatMessage.add(chat)
@@ -181,31 +184,46 @@ class HelpActivity : AppCompatActivity() {
         })
     }
 
-//    private fun getCommandsFromDB(){
-//        val databaseReference: DatabaseReference =
-//            FirebaseDatabase.getInstance(" https://wowrackcustomerapp-default-rtdb.asia-southeast1.firebasedatabase.app")
-//                .getReference("Command")
-//        var listCmd = ArrayList<Commands>()
-//        databaseReference.ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                for (dataSnapShot: DataSnapshot in snapshot.children){
-//                    val commandsData = dataSnapShot.value as HashMap<*, *>
-//                    val cmd = Commands(
-//                        cmd = commandsData["command"].toString(),
-//                        response = commandsData["command"].toString()
-//                    )
-//                    listCmd.add(cmd)
-//                    Log.d("cmd",cmd.toString())
-//                    Log.d("listcmd",listCmd.toString())
-//                    Log.d("cmddata",commandsData.toString())
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Log.w("HelpDb", "Failed to read value.", error.toException())
-//            }
-//
-//
-//        }
-//    }
+    private fun getCommandsFromDB() {
+        val databaseReference: DatabaseReference =
+            FirebaseDatabase.getInstance("https://wowrackcustomerapp-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Commands")
+
+//        val listCmd = ArrayList<Commands>()
+
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listCmd.clear() // Clear the list to avoid duplicates on data change
+                for (dataSnapShot: DataSnapshot in snapshot.children) {
+                    val commandsData = dataSnapShot.value as HashMap<*, *>
+                    Log.d("cdata", commandsData.toString())
+                    val cmd = Commands(commandsData["cmd"].toString(), commandsData["response"].toString())
+                    Log.d("cmd", cmd.toString())
+                    listCmd.add(cmd)
+                }
+                // Now listCmd should contain all the commands
+                // You can update your UI or perform any other action here
+                // For example, update the adapter if needed
+                Log.d("list",listCmd.toString())
+                val listCommandAdapter = CommandAdapter(listCmd)
+                binding.commandRecyclerView.adapter = listCommandAdapter
+                listCommandAdapter.setCommandClickListener(object :
+                    CommandAdapter.CommandClickListener {
+                    override fun onCommandClick(command: Commands) {
+                        val message = command.cmd
+                        val response = command.response
+                        sendMessage(senderId, Constant.RECEIVER_ID, message)
+                        val delayMillis = 2000L
+                        Handler().postDelayed({
+                            sendMessage(Constant.RECEIVER_ID, senderId, response)
+                        }, delayMillis)
+                    }
+                })
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("HelpDb", "Failed to read value.", error.toException())
+            }
+        })
+    }
 }

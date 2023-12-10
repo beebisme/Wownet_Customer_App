@@ -39,24 +39,41 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         viewModel.getSession().observe(this) { user ->
-            if (user.isLogin && !user.isBiometric) {
-                binding.biometricLoginButton.visibility = View.GONE
+//            if (user.isLogin && !user.isBiometric) {
+//                binding.biometricLoginButton.visibility = View.GONE
+//                startActivity(Intent(this, HomeActivity::class.java))
+//                finish()
+//            }
+//            if (user.isLogin && user.isBiometric) {
+//                binding = ActivityLoginBinding.inflate(layoutInflater)
+//                setContentView(binding.root)
+//                binding.biometricLoginButton.visibility = View.VISIBLE
+//                setupView()
+//                setupAction()
+//            } else {
+//                binding = ActivityLoginBinding.inflate(layoutInflater)
+//                setContentView(binding.root)
+//                binding.biometricLoginButton.visibility = View.GONE
+//                setupView()
+//                setupAction()
+//
+//            }
+            if (user.isLogin){
+                if (!user.isBiometric){
+                    binding.biometricLoginButton.visibility = View.GONE
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
-            }
-            if (user.isLogin && user.isBiometric) {
-                binding = ActivityLoginBinding.inflate(layoutInflater)
-                setContentView(binding.root)
+                }else{
+                    setContentView(binding.root)
                 binding.biometricLoginButton.visibility = View.VISIBLE
                 setupView()
                 setupAction()
-            } else {
-                binding = ActivityLoginBinding.inflate(layoutInflater)
+                }
+            }else{
                 setContentView(binding.root)
                 binding.biometricLoginButton.visibility = View.GONE
                 setupView()
                 setupAction()
-
             }
         }
 
