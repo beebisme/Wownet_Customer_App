@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +26,7 @@ class NewsArticles : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewsArticlesBinding
     private lateinit var recyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
     private val viewModel by viewModels<NewsViewModel> {
         ViewModelFactory.getInstance(this)
     }
@@ -32,6 +35,8 @@ class NewsArticles : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNewsArticlesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        progressBar = binding.progressBarLogin
 
         recyclerView = binding.recyclerViewArticles
         viewModel.getSession().observe(this) {
@@ -63,12 +68,14 @@ class NewsArticles : AppCompatActivity() {
     }
 
     private fun getArticles(token: String) {
+        progressBar.visibility = View.VISIBLE
         val apiService = ApiConfig.getService(token)
         apiService.getArticles().enqueue(object : Callback<ArticleResponse> {
             override fun onResponse(
                 call: Call<ArticleResponse>,
                 response: Response<ArticleResponse>
             ) {
+                progressBar.visibility = View.GONE
                 if (response.isSuccessful) {
                     val articles = response.body()?.data ?: emptyList()
                     val articleAdapter = ArticleAdapter(articles) { articleId ->

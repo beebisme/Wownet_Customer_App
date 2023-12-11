@@ -2,7 +2,9 @@ package com.example.wowrackcustomerapp.ui.main.section.detail
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,7 @@ import retrofit2.Response
 class DetailArticle : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailArticleBinding
+    private lateinit var progressBar: ProgressBar
     private val viewModel by viewModels<DetailArticleViewModel> {
         ViewModelFactory.getInstance(this)
     }
@@ -27,6 +30,8 @@ class DetailArticle : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailArticleBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        progressBar = binding.progressBarLogin
 
         val articleId = intent.getIntExtra(EXTRA_DETAIL_ID, -1)
 
@@ -40,11 +45,13 @@ class DetailArticle : AppCompatActivity() {
     }
 
     private fun updateUI(articleId: Int) {
+        progressBar.visibility = View.VISIBLE
         viewModel.getSession().observe(this@DetailArticle) { session ->
             if (session != null) {
                 val client = ApiConfig.getService(session.token).getArticleById(articleId)
                 client.enqueue(object : Callback<DetailArticleResponse> {
                     override fun onResponse(call: Call<DetailArticleResponse>, response: Response<DetailArticleResponse>) {
+                        progressBar.visibility = View.GONE
                         val tvDetailName: TextView = binding.tvTitle
                         val tvDetailDescription: TextView = binding.tvDescription
                         val ivDetailPhoto: ImageView = binding.ivArticle

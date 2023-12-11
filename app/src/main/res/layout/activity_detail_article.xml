@@ -38,7 +38,7 @@
         android:id="@+id/iv_article"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_200sdp"
-        android:src="@drawable/people_article"
+        android:src="@color/light_grey"
         android:scaleType="fitXY"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="32dp"
-        android:text="@string/first_name"
+        android:text="@string/name"
         android:textSize="@dimen/_16sdp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,12 +65,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:text="@string/first_description"
+        android:text="description"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        android:layout_width="@dimen/_34sdp"
+        android:layout_height="@dimen/_34sdp"
+        android:layout_margin="@dimen/_4sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

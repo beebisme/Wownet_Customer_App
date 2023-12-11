@@ -3,6 +3,8 @@ package com.example.wowrackcustomerapp.ui.main.section.home
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +30,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var recyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
     private lateinit var floatingActionButton: FloatingActionButton
     private val viewModel by viewModels<HomeViewModel> {
         ViewModelFactory.getInstance(this)
@@ -42,6 +45,7 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+        progressBar = binding.progressBarLogin
         floatingActionButton = binding.floatingActionButton
         floatingActionButton.setOnClickListener {
             val intent = Intent(this, HelpActivity::class.java)
@@ -108,12 +112,14 @@ class HomeActivity : AppCompatActivity() {
 ////        val client = ApiConfig.getService()
 //    }
     private fun getArticles(token: String) {
+        progressBar.visibility = View.VISIBLE
         val apiService = ApiConfig.getService(token)
         apiService.getArticles().enqueue(object : Callback<ArticleResponse> {
             override fun onResponse(
                 call: Call<ArticleResponse>,
                 response: Response<ArticleResponse>
             ) {
+                progressBar.visibility = View.GONE
                 if (response.isSuccessful) {
                     val articles = response.body()?.data ?: emptyList()
                     val articleAdapter = ArticleAdapter(articles) { articleId ->
