@@ -14,7 +14,6 @@ class DetailTraffic : AppCompatActivity() {
         binding = ActivityDetailTrafficBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.icBack.setOnClickListener {
             onBackPressed()
         }

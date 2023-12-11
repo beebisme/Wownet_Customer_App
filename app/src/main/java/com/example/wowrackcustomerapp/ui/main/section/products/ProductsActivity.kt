@@ -33,6 +33,10 @@ class ProductsActivity : AppCompatActivity() {
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        binding.buttonBack.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
     private fun getProducts(token: String) {

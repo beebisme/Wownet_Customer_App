@@ -33,6 +33,10 @@ class DetailArticle : AppCompatActivity() {
         if (articleId != -1) {
             updateUI(articleId)
         }
+
+        binding.icBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun updateUI(articleId: Int) {

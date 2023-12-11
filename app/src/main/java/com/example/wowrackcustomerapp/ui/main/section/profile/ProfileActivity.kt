@@ -48,6 +48,10 @@ class ProfileActivity : AppCompatActivity() {
         val invoiceAdapter = InvoiceAdapter(getListInvoice())
         rvInvoice.adapter = invoiceAdapter
 
+        binding.buttonBack.setOnClickListener {
+            onBackPressed()
+        }
+
         val switchBiometric = binding.biometricswitch
         viewModel.getSession().observe(this) {
             Log.d("biom", it.isBiometric.toString())
