@@ -20,6 +20,7 @@ import androidx.core.widget.addTextChangedListener
 import com.example.wowrackcustomerapp.data.api.ApiConfig
 import com.example.wowrackcustomerapp.data.models.UserModel
 import com.example.wowrackcustomerapp.data.response.LoginApiResponse
+import com.example.wowrackcustomerapp.data.response.LoginResult
 import com.example.wowrackcustomerapp.databinding.ActivityLoginBinding
 import com.example.wowrackcustomerapp.ui.ViewModelFactory
 import com.example.wowrackcustomerapp.ui.auth.otp.OneTimePassActivity
@@ -35,46 +36,32 @@ class LoginActivity : AppCompatActivity() {
     }
     private lateinit var progressBar: ProgressBar
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var email: String
+    private lateinit var password: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         viewModel.getSession().observe(this) { user ->
-//            if (user.isLogin && !user.isBiometric) {
-//                binding.biometricLoginButton.visibility = View.GONE
-//                startActivity(Intent(this, HomeActivity::class.java))
-//                finish()
-//            }
-//            if (user.isLogin && user.isBiometric) {
-//                binding = ActivityLoginBinding.inflate(layoutInflater)
-//                setContentView(binding.root)
-//                binding.biometricLoginButton.visibility = View.VISIBLE
-//                setupView()
-//                setupAction()
-//            } else {
-//                binding = ActivityLoginBinding.inflate(layoutInflater)
-//                setContentView(binding.root)
-//                binding.biometricLoginButton.visibility = View.GONE
-//                setupView()
-//                setupAction()
-//
-//            }
-            if (user.isLogin){
-                if (!user.isBiometric){
+            if (user.isLogin) {
+                if (!user.isBiometric) {
                     binding.biometricLoginButton.visibility = View.GONE
-                startActivity(Intent(this, HomeActivity::class.java))
-                finish()
-                }else{
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
+                } else {
                     setContentView(binding.root)
-                binding.biometricLoginButton.visibility = View.VISIBLE
-                setupView()
-                setupAction()
+                    binding.biometricLoginButton.visibility = View.VISIBLE
+                    setupView()
+                    setupAction()
                 }
-            }else{
+            } else {
                 setContentView(binding.root)
                 binding.biometricLoginButton.visibility = View.GONE
                 setupView()
                 setupAction()
             }
+        }
+        viewModel.loginResult.observe(this) { result ->
+            handleLoginResult()
         }
 
     }
@@ -102,112 +89,97 @@ class LoginActivity : AppCompatActivity() {
         binding.passwordEditText.addTextChangedListener {
             checkLoginButtonStatus()
         }
+
         binding.buttonLogin.setOnClickListener {
-            binding.buttonLogin.isEnabled = false
-            progressBar.visibility = View.VISIBLE
-            val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-            val client = ApiConfig.getService("").login(email, password)
-            client.enqueue(object : Callback<LoginApiResponse> {
-                override fun onResponse(
-                    call: Call<LoginApiResponse>,
-                    response: Response<LoginApiResponse>
-                ) {
-
-                    progressBar.visibility = View.GONE
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        viewModel.saveSession(
-                            UserModel(
-                                responseBody.data.id.toString(),
-                                responseBody.data.name,
-                                responseBody.data.email,
-                                password,
-                                responseBody.data.token,
-                                responseBody.data.phone,
-                                responseBody.data.address,
-                                false
-                            )
-                        )
-                        ViewModelFactory.clearInstance()
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Success",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        val intent = Intent(this@LoginActivity, OneTimePassActivity::class.java)
-                        intent.putExtra("token", responseBody.data.token)
-                        intent.putExtra("email", responseBody.data.email)
-                        intent.putExtra("password", password)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        binding.buttonLogin.isEnabled = true
-                        runOnUiThread {
-                            Toast.makeText(
-                                this@LoginActivity,
-                                "Incorrect email or password",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<LoginApiResponse>, t: Throwable) {
-                    binding.buttonLogin.isEnabled = true
-                    progressBar.visibility = View.GONE
-                    Log.e(ContentValues.TAG, "onFailure: ${t.message}")
-                    AlertDialog.Builder(this@LoginActivity).apply {
-                        setTitle("Oops!")
-                        setMessage("${t.message}")
-                        setPositiveButton("OK") { _, _ -> }
-                        create()
-                        show()
-                    }
-                }
-
-            })
+            email = binding.emailEditText.text.toString()
+            password = binding.passwordEditText.text.toString()
+            viewModel.login(email, password)
         }
         binding.biometricLoginButton.setOnClickListener {
             showBiometricPrompt()
         }
     }
 
+    private fun handleLoginResult() {
+        viewModel.loginResult.observe(this) {
+            if (it != null) {
+                if (it.data != null) {
+                    progressBar.visibility = View.GONE
+                    viewModel.saveSession(
+                        UserModel(
+                            it.data.id.toString(),
+                            it.data.name,
+                            it.data.email,
+                            password,
+                            it.data.token,
+                            it.data.phone,
+                            it.data.address,
+                            false
+                        )
+                    )
+                    ViewModelFactory.clearInstance()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Success",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    val intent = Intent(this@LoginActivity, OneTimePassActivity::class.java)
+                    intent.putExtra("token", it.data.token)
+                    intent.putExtra("email", it.data.email)
+                    intent.putExtra("password", password)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    finish()
+                }
+
+
+                if (it.error != null) {
+                    binding.buttonLogin.isEnabled = true
+                    runOnUiThread {
+                        Toast.makeText(
+                            this@LoginActivity,
+//                                "Incorrect email or password",
+                            it.error!!.message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                }
+            }
+        }
+    }
+
     private fun showBiometricPrompt() {
-        val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Biometric Authentication")
-            .setSubtitle("Log in using your biometric credential")
-            .setNegativeButtonText("Cancel")
+        val promptInfo = BiometricPrompt.PromptInfo.Builder().setTitle("Biometric Authentication")
+            .setSubtitle("Log in using your biometric credential").setNegativeButtonText("Cancel")
             .build()
 
-        val biometricPrompt =
-            BiometricPrompt(this, ContextCompat.getMainExecutor(this),
-                object : BiometricPrompt.AuthenticationCallback() {
-                    override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                        super.onAuthenticationError(errorCode, errString)
-                        // Handle authentication error
-                        showMessage("Authentication error: $errString")
-                    }
+        val biometricPrompt = BiometricPrompt(this,
+            ContextCompat.getMainExecutor(this),
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    // Handle authentication error
+                    showMessage("Authentication error: $errString")
+                }
 
-                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                        super.onAuthenticationSucceeded(result)
-                        // Handle authentication success
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        finish()
-                        showMessage("Authentication succeeded!")
-                    }
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    // Handle authentication success
+                    val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    finish()
+                    showMessage("Authentication succeeded!")
+                }
 
-                    override fun onAuthenticationFailed() {
-                        super.onAuthenticationFailed()
-                        // Handle authentication failure
-                        showMessage("Authentication failed.")
-                    }
-                })
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    // Handle authentication failure
+                    showMessage("Authentication failed.")
+                }
+            })
 
         biometricPrompt.authenticate(promptInfo)
     }
@@ -237,7 +209,8 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.passwordEditText.text.toString().trim()
 
         val isEmailValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        val isPasswordValid = password.isNotEmpty() && password.length >= 8 // Add your password validation logic here
+        val isPasswordValid =
+            password.isNotEmpty() && password.length >= 8 // Add your password validation logic here
 
         binding.buttonLogin.isEnabled = isEmailValid && isPasswordValid
     }

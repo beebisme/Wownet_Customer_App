@@ -95,54 +95,47 @@ class OneTimePassActivity : AppCompatActivity() {
                 binding.clickmeTv.setTextColor(getColor(R.color.grey))
                 resendAttempts++
                 checkAttemptsAndRedirect()
-
-                val client = ApiConfig.getService("").login(email, password)
-                client.enqueue(object : Callback<LoginApiResponse> {
-                    override fun onResponse(
-                        call: Call<LoginApiResponse>,
-                        response: Response<LoginApiResponse>
-                    ) {
-                        val responseBody = response.body()
-                        if (responseBody != null) {
+                viewModel.resendOtp(email, password)
+                viewModel.otpResult.observe(this) {
+                    if (it != null) {
+                        if (it.data != null) {
                             viewModel.saveSession(
                                 UserModel(
-                                    responseBody.data.id.toString(),
-                                    responseBody.data.name,
-                                    responseBody.data.email,
+                                    it.data.id.toString(),
+                                    it.data.name,
+                                    it.data.email,
                                     password,
-                                    responseBody.data.token,
-                                    responseBody.data.phone,
-                                    responseBody.data.address,
+                                    it.data.token,
+                                    it.data.phone,
+                                    it.data.address,
                                     false
                                 )
                             )
-                            token = responseBody.data.token
+                            token = it.data.token
                             ViewModelFactory.clearInstance()
                             Toast.makeText(
                                 this@OneTimePassActivity,
                                 "OTP successfully resent",
                                 Toast.LENGTH_LONG
                             ).show()
+                            binding.progressBarOTP.visibility = View.GONE
+                            starTimer(pauseOffSet)
                         }
-                        binding.progressBarOTP.visibility = View.GONE
-                        starTimer(pauseOffSet)
-//                        resendAttempts = 0 // Reset resend attempts on success
-                    }
-
-                    override fun onFailure(call: Call<LoginApiResponse>, t: Throwable) {
-                        binding.progressBarOTP.visibility = View.GONE
-                        Log.e(ContentValues.TAG, "onFailure: ${t.message}")
+                        if (it.error != null){
+                            binding.progressBarOTP.visibility = View.GONE
+                        Log.e(ContentValues.TAG, "onFailure: ${it.error!!.message}")
                         AlertDialog.Builder(this@OneTimePassActivity).apply {
                             setTitle("Oops!")
-                            setMessage("${t.message}")
+                            setMessage(it.error!!.message)
                             setPositiveButton("OK") { _, _ -> }
                             create()
                             show()
                         }
-//                        resendAttempts++
+                        resendAttempts++
                         checkAttemptsAndRedirect()
+                        }
                     }
-                })
+                }
             } else {
                 Toast.makeText(
                     this@OneTimePassActivity,
@@ -194,7 +187,7 @@ class OneTimePassActivity : AppCompatActivity() {
                                     Intent(this@OneTimePassActivity, HomeActivity::class.java)
                                 intent.flags =
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                intent.putExtra("email",email)
+                                intent.putExtra("email", email)
                                 startActivity(intent)
                                 finish()
                             } else {

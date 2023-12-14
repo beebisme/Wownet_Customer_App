@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 data class LoginApiResponse(
 
 	@field:SerializedName("data")
-	val data: Data,
+	val data: Data?,
 
 	@field:SerializedName("error")
-	val error: Error
+	var error: Error?
 )
 
 data class Data(
@@ -36,3 +36,9 @@ data class Error(
 	@field:SerializedName("message")
 	val message: String
 )
+
+sealed class LoginResult {
+	data object Loading : LoginResult()
+	data class Success(val data: LoginApiResponse?) : LoginResult()
+	data class Error(val message: String) : LoginResult()
+}
